@@ -9,7 +9,7 @@ package kpss.jdlv;
 public class Visiteur {
     
     /** Jeu de la vie */
-    private JeuDeLaVie jeu;
+    protected JeuDeLaVie jeu;
 
     /**
      * Constructeur de Visiteur
@@ -22,17 +22,19 @@ public class Visiteur {
     /**
      * Visite d'une cellule vivante
      * @param cellule Cellule vivante
+     * @throws UnsupportedOperationException
      */ 
     public void visiteCellVivante(Cellule cellule) {
-
+        throw new UnsupportedOperationException("Unimplemented method 'visiteCellVivante'");
     }
 
     /**
      * Visite d'une cellule morte
      * @param cellule Cellule morte
+     * @throws UnsupportedOperationException
      */ 
     public void visiteCellMorte(Cellule cellule) {
-
+        throw new UnsupportedOperationException("Unimplemented method 'visiteCellMorte'");
     }
 
 }

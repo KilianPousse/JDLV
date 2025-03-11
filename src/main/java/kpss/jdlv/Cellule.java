@@ -141,6 +141,6 @@ public class Cellule {
      * @param visiteur Type de visite
      */
     public void accepte(Visiteur visiteur) {
-
+        etat.accepte(visiteur, this);
     }
 }

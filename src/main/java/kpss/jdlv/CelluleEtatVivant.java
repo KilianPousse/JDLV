@@ -67,4 +67,13 @@ public class CelluleEtatVivant implements CelluleEtat {
         return true;
     }
    
+    /**
+     * Permet de visiter / actualiser une cellule vivante
+     * @param visiteur Type de tritement a reatilser
+     * @param cellule Cellule qui subit le traitement
+     */
+    @Override
+    public void accepte(Visiteur visiteur, Cellule cellule) {
+        visiteur.visiteCellVivante(cellule);
+    }
 }

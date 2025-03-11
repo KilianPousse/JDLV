@@ -14,8 +14,8 @@ public class JeuDeLaVie implements Observable {
     /** Valeur par default de 'yMax' */
     public static final int DEFAUT_YMAX = 100;
 
-    /** Valeur par default de 'alea' */
-    public static final int DEFAUT_ALEA = 2;
+    /** Valeur par default de 'ration' */
+    public static final double DEFAUT_RATION = 5;
 
 
     
@@ -35,6 +35,12 @@ public class JeuDeLaVie implements Observable {
 
     /** Liste des commandes du jeu de la vie (Commande) */
     private List<Commande> commandes;
+
+    /** Regle du jeu effectuée sur les cellules */
+    private Visiteur visiteur;
+
+    /** Numéro de la génération */
+    private long generation;
     
 
 
@@ -44,11 +50,14 @@ public class JeuDeLaVie implements Observable {
      * Constructeur d'un je de la vie avec des parametres.
      * @param xMax Coordonnée maximal sur l'axe X
      * @param yMax Coordonnée maximal sur l'axe Y
+     * @param visiteur Regle du jeu effectuée sur les cellules
      */
-    public JeuDeLaVie(int xMax, int yMax) {
+    public JeuDeLaVie(int xMax, int yMax, Visiteur visiteur) {
         this.xMax = xMax;
         this.yMax = yMax;
         this.grille = new Cellule[xMax][yMax];
+        this.visiteur = visiteur;
+        this.generation = 0;
     }
 
     /**
@@ -59,13 +68,15 @@ public class JeuDeLaVie implements Observable {
         this.xMax = DEFAUT_XMAX;
         this.yMax = DEFAUT_YMAX;
         this.grille = new Cellule[DEFAUT_XMAX][DEFAUT_YMAX];
+        this.visiteur = new VisiteurClassique(this);
+        this.generation = 0;
     }
 
 
     /* ========== Getter & Setter ========== */
 
     /**
-     * Getter: Récupération d'une cellule de la grille du JDLV
+     * Getter: Recupération d'une cellule de la grille du JDLV
      * @return Grille qui stocke les cellules du JDLV 
      */
     public Cellule getGrilleXY(int x, int y) {
@@ -73,7 +84,7 @@ public class JeuDeLaVie implements Observable {
     }
 
     /**
-     * Getter: Récupération de la coordonnée maximal sur l'axe X
+     * Getter: Recupération de la coordonnée maximal sur l'axe X
      * @return Coordonnée maximal sur l'axe X
      */
     public int getXMax() {
@@ -81,11 +92,27 @@ public class JeuDeLaVie implements Observable {
     }
 
     /**
-     * Getter: Récupération de la coordonnée maximal sur l'axe Y
+     * Getter: Recupération de la coordonnée maximal sur l'axe Y
      * @return Coordonnée maximal sur l'axe Y
      */
     public int getYMax() {
         return yMax;
+    }
+
+    /**
+     * Getter: Recupération de la generation
+     * @return generation
+     */
+    public long getGeneration() {
+        return generation;
+    }
+
+    /**
+     * Setter: Affectation de la generation
+     * @param generation generation
+     */
+    public void setGeneration(long generation) {
+        this.generation = generation;
     }
 
 
@@ -93,9 +120,9 @@ public class JeuDeLaVie implements Observable {
 
     /**
      * Initialiser la grille selon 'xMax' et 'yMax'
-     * @param alea 1/chance d'etre vivante
+     * @param ration ration qui definie la chance d'avoir une cellule morte ou vivante
      */
-    public void initialiseGrille(int alea) {
+    public void initialiseGrille(double ration) {
         // Initialisation de la varible aléatoire
         Random rand = new Random();
 
@@ -105,9 +132,11 @@ public class JeuDeLaVie implements Observable {
 
                 // Etat de la cellule
                 CelluleEtat etat = null;
+
+                double rdm = rand.nextDouble();
                 
                 // Génération de l'etat de la cellule
-                if(rand.nextInt(alea) == 0) {
+                if(rdm < (ration/100.0)) {
                     // VIVANTE :)
                     etat = CelluleEtatVivant.getInstance();
                 }
@@ -125,7 +154,7 @@ public class JeuDeLaVie implements Observable {
      * Initialiser la grille selon 'xMax' et 'yMax'
      */
     public void initialiseGrille() {
-        initialiseGrille(DEFAUT_ALEA);
+        initialiseGrille(DEFAUT_RATION);
     }
 
     /**
@@ -183,4 +212,30 @@ public class JeuDeLaVie implements Observable {
         }
         commandes.clear();
     }
+
+    /**
+     * Actualisation des 
+     */
+    public void distribueVisiteur() {
+        for(int i=0; i<xMax; i++) {
+            for(int j=0; j<yMax; j++) {
+                getGrilleXY(i, j).accepte(visiteur);
+            }
+        }
+    }
+
+    /**
+     * Calculer la nouvelle generation
+     */
+    public long calculerGeneration() {
+        generation += 1 ;
+
+        distribueVisiteur();
+        executeCommandes();
+        notifieObservateurs();
+
+        return generation;
+    }
+
+
 }

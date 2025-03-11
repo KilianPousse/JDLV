@@ -27,4 +27,11 @@ public interface CelluleEtat {
      * @return Vrai si la cellule est vivante, Faux sinon
      */
     public boolean estVivante();
+
+    /**
+     * Permet de visiter / actualiser une cellule selon son etat
+     * @param visiteur Type de tritement a reatilser
+     * @param cellule Cellule qui subit le traitement
+     */
+    public void accepte(Visiteur visiteur, Cellule cellule);
 }
