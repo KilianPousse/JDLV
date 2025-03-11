@@ -30,6 +30,7 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      */
     public JeuDeLaVieUI(JeuDeLaVie jeu, int taille) {
         this.jeu = jeu;
+        this.jeu.attacheObservateur(this);
         this.taille = taille;
     }
 
@@ -74,6 +75,7 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      */
     @Override
     public void actualise() {
+        System.out.println("Redefinition du rendu nouvelle generation");
         repaint();
     }
     
@@ -83,6 +85,7 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      */
     public void paint(Graphics g) {
         super.paint(g);
+        System.out.println("Creation de l'image de la nouvelle generation");
         g.setColor(Color.BLUE);
 
         for(int x=0; x<jeu.getXMax(); x++) {

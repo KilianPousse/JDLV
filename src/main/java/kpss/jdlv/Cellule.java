@@ -123,18 +123,30 @@ public class Cellule {
      * @return Le nombre de voisins vivantes
      */
     public int nombreVoisinesVivantes(JeuDeLaVie jeu) {
-        int res = -1;
-        for(int dx=-1; dx<2; dx++) {
-            for(int dy=-1; dy<2; dy++) {
-                
-                if(!jeu.estValide(x + dx, y + dy))
+        int res = 0;
+
+        for(int dx=-1; dx<=1; dx++) {
+            for(int dy=-1; dy<=1; dy++) {
+                if(dx==0 && dy==0) {
                     continue;
-                
-                res += jeu.getGrilleXY(x + dx, y + dy).estVivante() ? 1 : 0;
+                }
+
+                int voisinX = x + dx;
+                int voisinY = y + dy;
+
+                if(!jeu.estValide(voisinX, voisinY)) {
+                    continue;
+                }
+
+                if(jeu.getGrilleXY(voisinX, voisinY).estVivante()) {
+                    res++;
+                }
             }
         }
+
         return res;
     }
+
     
     /**
      * Visiteur de cellule (Visiteur)
@@ -142,5 +154,14 @@ public class Cellule {
      */
     public void accepte(Visiteur visiteur) {
         etat.accepte(visiteur, this);
+    }
+
+    /**
+     * Representation en String
+     * @return String equivalent
+     */
+    @Override
+    public String toString() {
+        return "<Cellule pos=(" + x + "," + y + ") etat='" + etat + "'>";
     }
 }

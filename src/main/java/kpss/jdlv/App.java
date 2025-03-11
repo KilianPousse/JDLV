@@ -13,7 +13,7 @@ public class App {
     /* ======= Variables d'instances ======= */
 
     /** Fenetre de l'application */
-    private JFrame frame;
+    private JFrame fenetre;
 
     /** Jeu de la vie */
     private JeuDeLaVie jeu;
@@ -33,20 +33,20 @@ public class App {
      * Constructeur de l'application
      */
     public App() {
-        frame = new JFrame("Le Jeu De La Vie");
+        fenetre = new JFrame("Le Jeu De La Vie");
 
-        jeu = new JeuDeLaVie();
-        jeu.initialiseGrille(5);
+        jeu = new JeuDeLaVie(200, 200);
+        jeu.initialiseGrille(10);
 
-        ui = new JeuDeLaVieUI(jeu, 10);
+        ui = new JeuDeLaVieUI(jeu, 3);
 
         jeu.attacheObservateur(ui);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(ui.getDimFrame());
-        frame.add(ui);
+        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fenetre.setSize(ui.getDimFrame());
+        fenetre.add(ui);
 
-        timer = new Timer(500, e -> update());
+        timer = new Timer(100, e -> update());
     }
 
 
@@ -58,7 +58,7 @@ public class App {
      */
     public void run() {
         System.out.println("Lancement de la fenetre de l'application");
-        frame.setVisible(true);
+        fenetre.setVisible(true);
     }
 
     /**
@@ -86,5 +86,12 @@ public class App {
      */
     public void update() {
         jeu.calculerGeneration();
+    }
+
+    /**
+     * Ajouter une cellule vivante
+     */
+    public void addCellule(int x, int y) {
+        jeu.addCellule(x, y);
     }
 }

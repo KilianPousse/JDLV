@@ -76,4 +76,13 @@ public class CelluleEtatMort implements CelluleEtat {
     public void accepte(Visiteur visiteur, Cellule cellule) {
         visiteur.visiteCellMorte(cellule);
     }
+
+    /**
+     * Representation en String
+     * @return String equivalent
+     */
+    @Override
+    public String toString() {
+        return "morte";
+    }
 }

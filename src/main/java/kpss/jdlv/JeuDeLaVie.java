@@ -34,7 +34,7 @@ public class JeuDeLaVie implements Observable {
     private List<Observateur> observateurs = new ArrayList<>();
 
     /** Liste des commandes du jeu de la vie (Commande) */
-    private List<Commande> commandes;
+    private List<Commande> commandes = new ArrayList<>();
 
     /** Regle du jeu effectuée sur les cellules */
     private Visiteur visiteur;
@@ -50,13 +50,12 @@ public class JeuDeLaVie implements Observable {
      * Constructeur d'un je de la vie avec des parametres.
      * @param xMax Coordonnée maximal sur l'axe X
      * @param yMax Coordonnée maximal sur l'axe Y
-     * @param visiteur Regle du jeu effectuée sur les cellules
      */
-    public JeuDeLaVie(int xMax, int yMax, Visiteur visiteur) {
+    public JeuDeLaVie(int xMax, int yMax) {
         this.xMax = xMax;
         this.yMax = yMax;
         this.grille = new Cellule[xMax][yMax];
-        this.visiteur = visiteur;
+        this.visiteur = new VisiteurClassique(this);
         this.generation = 0;
     }
 
@@ -123,6 +122,7 @@ public class JeuDeLaVie implements Observable {
      * @param ration ration qui definie la chance d'avoir une cellule morte ou vivante
      */
     public void initialiseGrille(double ration) {
+        //System.out.println("Initialisation de la grille (ration=" + ration + "%).");
         // Initialisation de la varible aléatoire
         Random rand = new Random();
 
@@ -154,6 +154,7 @@ public class JeuDeLaVie implements Observable {
      * Initialiser la grille selon 'xMax' et 'yMax'
      */
     public void initialiseGrille() {
+        //System.out.println("Initialisation de la grille par defaut...");
         initialiseGrille(DEFAUT_RATION);
     }
 
@@ -214,7 +215,7 @@ public class JeuDeLaVie implements Observable {
     }
 
     /**
-     * Actualisation des 
+     * Actualisation des cellules
      */
     public void distribueVisiteur() {
         for(int i=0; i<xMax; i++) {
@@ -229,12 +230,18 @@ public class JeuDeLaVie implements Observable {
      */
     public long calculerGeneration() {
         generation += 1 ;
+        //System.out.println("Calcule de la generation n°" + generation + " ...");
 
         distribueVisiteur();
         executeCommandes();
         notifieObservateurs();
 
         return generation;
+    }
+
+    public void addCellule(int x, int y) {
+        System.out.println("Passage de " + grille[x][y] + " en vivante!");
+        grille[x][y].vit();
     }
 
 

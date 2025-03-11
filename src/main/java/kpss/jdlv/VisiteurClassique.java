@@ -36,7 +36,8 @@ public class VisiteurClassique extends Visiteur {
     public void visiteCellVivante(Cellule cellule) {
         int voisines = cellule.nombreVoisinesVivantes(jeu);
 
-        if(voisines < 2 && voisines > 3) {
+        if(voisines < 2 || voisines > 3) {
+            System.out.println(cellule + " va mourrir! (" + voisines + ")");
             jeu.ajouteCommande(new CommandeMeurt(cellule));
         }
     }
@@ -53,6 +54,7 @@ public class VisiteurClassique extends Visiteur {
         int voisines = cellule.nombreVoisinesVivantes(jeu);
 
         if(voisines == 3) {
+            System.out.println(cellule + " va naitre! (" + voisines + ")");
             jeu.ajouteCommande(new CommandeVit(cellule));
         }
     }
