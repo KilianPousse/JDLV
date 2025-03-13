@@ -4,7 +4,6 @@ package kpss.jdlv;
  * Interface du Design Pattern <<Obsercable>> sur le jeu
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public interface Observable {
     

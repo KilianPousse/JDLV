@@ -1,10 +1,11 @@
 package kpss.jdlv;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class JeuDeLaVie implements Observable {
+public class JeuDeLaVie implements Observable, Iterable<Cellule> {
 
     /* ======= Constantes de classe ======== */
 
@@ -122,7 +123,6 @@ public class JeuDeLaVie implements Observable {
      * @param ration ration qui definie la chance d'avoir une cellule morte ou vivante
      */
     public void initialiseGrille(double ration) {
-        //System.out.println("Initialisation de la grille (ration=" + ration + "%).");
         // Initialisation de la varible aléatoire
         Random rand = new Random();
 
@@ -154,7 +154,6 @@ public class JeuDeLaVie implements Observable {
      * Initialiser la grille selon 'xMax' et 'yMax'
      */
     public void initialiseGrille() {
-        //System.out.println("Initialisation de la grille par defaut...");
         initialiseGrille(DEFAUT_RATION);
     }
 
@@ -218,10 +217,8 @@ public class JeuDeLaVie implements Observable {
      * Actualisation des cellules
      */
     public void distribueVisiteur() {
-        for(int i=0; i<xMax; i++) {
-            for(int j=0; j<yMax; j++) {
-                getGrilleXY(i, j).accepte(visiteur);
-            }
+        for(Cellule cellule: this) {
+            cellule.accepte(visiteur);
         }
     }
 
@@ -230,7 +227,6 @@ public class JeuDeLaVie implements Observable {
      */
     public long calculerGeneration() {
         generation += 1 ;
-        //System.out.println("Calcule de la generation n°" + generation + " ...");
 
         distribueVisiteur();
         executeCommandes();
@@ -239,10 +235,20 @@ public class JeuDeLaVie implements Observable {
         return generation;
     }
 
-    public void addCellule(int x, int y) {
-        System.out.println("Passage de " + grille[x][y] + " en vivante!");
+    /**
+     * Ajouter une cellule vivante dans le jeu
+     * @param x Coordonnées sur l'axe X
+     * @param y Coordonnées sur l'axe Y
+     */
+    public void ajouteCellule(int x, int y) {
         grille[x][y].vit();
     }
 
-
+    /**
+     * Permet de rendre le jeu de la vie iterable.
+     * @return Iterateur du jeu de la vie
+     */
+    public Iterator<Cellule> iterator() {
+        return new JeuDeLaVieIterateur(grille);
+    }
 }

@@ -12,7 +12,6 @@ package kpss.jdlv;
  * 
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public class VisiteurClassique extends Visiteur {
 
@@ -37,7 +36,6 @@ public class VisiteurClassique extends Visiteur {
         int voisines = cellule.nombreVoisinesVivantes(jeu);
 
         if(voisines < 2 || voisines > 3) {
-            System.out.println(cellule + " va mourrir! (" + voisines + ")");
             jeu.ajouteCommande(new CommandeMeurt(cellule));
         }
     }
@@ -54,7 +52,6 @@ public class VisiteurClassique extends Visiteur {
         int voisines = cellule.nombreVoisinesVivantes(jeu);
 
         if(voisines == 3) {
-            System.out.println(cellule + " va naitre! (" + voisines + ")");
             jeu.ajouteCommande(new CommandeVit(cellule));
         }
     }

@@ -4,7 +4,6 @@ package kpss.jdlv;
  * Classe permettant de représenter un état de cellule vivante.
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public class CelluleEtatVivant implements CelluleEtat {
 

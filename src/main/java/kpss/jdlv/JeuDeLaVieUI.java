@@ -7,7 +7,6 @@ import java.awt.*;
  * Classe representant l'interface du jeu de la vie.
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public class JeuDeLaVieUI extends JPanel implements Observateur {
 
@@ -75,7 +74,6 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      */
     @Override
     public void actualise() {
-        System.out.println("Redefinition du rendu nouvelle generation");
         repaint();
     }
     
@@ -85,14 +83,11 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      */
     public void paint(Graphics g) {
         super.paint(g);
-        System.out.println("Creation de l'image de la nouvelle generation");
         g.setColor(Color.BLUE);
 
-        for(int x=0; x<jeu.getXMax(); x++) {
-            for(int y=0; y<jeu.getYMax(); y++) {
-                if(jeu.getGrilleXY(x, y).estVivante()) {
-                    g.fillOval(x*taille, y*taille, taille, taille);
-                }
+        for(Cellule cellule: jeu) {
+            if(cellule.estVivante()) {
+                g.fillOval(cellule.getX()*taille, cellule.getY()*taille, taille, taille);
             }
         }
     }

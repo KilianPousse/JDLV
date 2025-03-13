@@ -4,7 +4,6 @@ package kpss.jdlv;
  * Classe abstract qui represente les commandes du JDLV (Commande)
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public abstract class Commande {
 

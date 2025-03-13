@@ -6,7 +6,6 @@ import javax.swing.*;
  * Classe representant l'application
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public class App {
 
@@ -20,6 +19,9 @@ public class App {
 
     /** Interface du jeu de la vie */
     private JeuDeLaVieUI ui;
+
+    /** Console qui est appellé à chaque boucle */
+    private Console console;
 
     /** Timer pour la boucle du jeu */
     private Timer timer;
@@ -39,8 +41,10 @@ public class App {
         jeu.initialiseGrille(10);
 
         ui = new JeuDeLaVieUI(jeu, 3);
+        console = new Console(jeu);
 
         jeu.attacheObservateur(ui);
+        jeu.attacheObservateur(console);
 
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setSize(ui.getDimFrame());
@@ -57,7 +61,6 @@ public class App {
      * Lancer l'application
      */
     public void run() {
-        System.out.println("Lancement de la fenetre de l'application");
         fenetre.setVisible(true);
     }
 
@@ -91,7 +94,7 @@ public class App {
     /**
      * Ajouter une cellule vivante
      */
-    public void addCellule(int x, int y) {
-        jeu.addCellule(x, y);
+    public void ajouteCellule(int x, int y) {
+        jeu.ajouteCellule(x, y);
     }
 }

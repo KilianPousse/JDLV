@@ -4,7 +4,6 @@ package kpss.jdlv;
  * Interface qui représente l'état d'une cellule du Jeu De La Vie.
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public interface CelluleEtat {
     

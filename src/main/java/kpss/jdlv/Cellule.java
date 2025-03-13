@@ -4,7 +4,6 @@ package kpss.jdlv;
  * Classe représentant une cellule du JDLV.
  * @author Kilian POUSSE
  * @since 2025-03-11
- * @version 1.0
  */
 public class Cellule {
 
