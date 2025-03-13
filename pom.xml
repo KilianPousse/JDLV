@@ -5,7 +5,7 @@
   <groupId>kpss.jdlv</groupId>
   <artifactId>POUSSE-JDLV</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.0</version>
+  <version>0.2</version>
   <name>POUSSE-JDLV</name>
   <url>http://maven.apache.org</url>
 

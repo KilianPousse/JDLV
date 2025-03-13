@@ -148,11 +148,11 @@ public class Cellule {
 
     
     /**
-     * Visiteur de cellule (Visiteur)
-     * @param visiteur Type de visite
+     * Acces au rege du jeu (Visiteur)
+     * @param regle Type de regle
      */
-    public void accepte(Visiteur visiteur) {
-        etat.accepte(visiteur, this);
+    public void accepte(Regle regle) {
+        etat.accepte(regle, this);
     }
 
     /**

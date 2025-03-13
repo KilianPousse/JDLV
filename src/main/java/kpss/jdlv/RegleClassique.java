@@ -1,7 +1,8 @@
 package kpss.jdlv;
 
 /**
- * Classe qui visite les cellules de magniere simple et classique (Visiteur, Singleton)
+ * Classe des regles classique du jeu de la vie. C'est un visiteur qui visite les cellules de
+ * magniere simple et classique (Visiteur, Singleton)
  * 
  * <p><b>Règles du jeu :</b></p>
  * <ul>
@@ -13,13 +14,13 @@ package kpss.jdlv;
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public class VisiteurClassique extends Visiteur {
+public class RegleClassique extends Regle {
 
     /**
      * Constructeur d'un visiteur classique.
      * @param jeu jeu de la vie
      */
-    public VisiteurClassique(JeuDeLaVie jeu) {
+    public RegleClassique(JeuDeLaVie jeu) {
         super(jeu);
     }
 
@@ -54,6 +55,15 @@ public class VisiteurClassique extends Visiteur {
         if(voisines == 3) {
             jeu.ajouteCommande(new CommandeVit(cellule));
         }
+    }
+
+    /**
+     * Representation en String de la regle
+     * @return la representation
+     */
+    @Override
+    public String toString() {
+        return "Règle Classique";
     }
     
 }

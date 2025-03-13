@@ -9,7 +9,9 @@ kpss\jdlv\CelluleEtatMort.class
 kpss\jdlv\VisiteurClassique.class
 kpss\jdlv\CommandeMeurt.class
 kpss\jdlv\Observateur.class
+kpss\jdlv\JeuDeLaVieIterateur.class
 kpss\jdlv\JeuDeLaVieUI.class
 kpss\jdlv\Observable.class
 kpss\jdlv\Commande.class
+kpss\jdlv\Console.class
 kpss\jdlv\Main.class

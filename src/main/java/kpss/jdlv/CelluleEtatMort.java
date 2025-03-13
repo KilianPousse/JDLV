@@ -68,12 +68,12 @@ public class CelluleEtatMort implements CelluleEtat {
     
     /**
      * Permet de visiter / actualiser une cellule morte
-     * @param visiteur Type de tritement a reatilser
+     * @param regle Type de tritement a reatilser selon la regle
      * @param cellule Cellule qui subit le traitement
      */
     @Override
-    public void accepte(Visiteur visiteur, Cellule cellule) {
-        visiteur.visiteCellMorte(cellule);
+    public void accepte(Regle regle, Cellule cellule) {
+        regle.visiteCellMorte(cellule);
     }
 
     /**

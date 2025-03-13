@@ -29,8 +29,8 @@ public interface CelluleEtat {
 
     /**
      * Permet de visiter / actualiser une cellule selon son etat
-     * @param visiteur Type de tritement a reatilser
+     * @param regle Type de tritement a reatilser selon la regle
      * @param cellule Cellule qui subit le traitement
      */
-    public void accepte(Visiteur visiteur, Cellule cellule);
+    public void accepte(Regle regle, Cellule cellule);
 }

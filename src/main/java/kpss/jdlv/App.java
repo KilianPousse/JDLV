@@ -1,5 +1,6 @@
 package kpss.jdlv;
 
+import java.awt.GridLayout;
 import javax.swing.*;
 
 /**
@@ -26,8 +27,11 @@ public class App {
     /** Timer pour la boucle du jeu */
     private Timer timer;
 
-    /** Sauvegarde si le jeu est en pause */
-    private boolean enPause;
+    /** Panneau de controle du jeu */
+    private PanneauDeControle pdc;
+
+    /** Liste des règles du jeu possibles */
+    private Regle[] regles;
     
     /* =========== Constructeurs =========== */
 
@@ -40,17 +44,27 @@ public class App {
         jeu = new JeuDeLaVie(200, 200);
         jeu.initialiseGrille(10);
 
+        regles = new Regle[] {
+            new RegleClassique(jeu),
+            new RegleClassique(jeu)
+        };
+
+        timer = new Timer(200, e -> update());
+        timer.stop();
+
         ui = new JeuDeLaVieUI(jeu, 3);
         console = new Console(jeu);
+        pdc = new PanneauDeControle(jeu, timer, regles);
 
         jeu.attacheObservateur(ui);
         jeu.attacheObservateur(console);
 
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenetre.setSize(ui.getDimFrame());
-        fenetre.add(ui);
+        fenetre.setSize(1225, 625);
 
-        timer = new Timer(100, e -> update());
+        fenetre.setLayout(new GridLayout(1, 2));
+        fenetre.add(pdc.getPanel());
+        fenetre.add(ui);
     }
 
 
@@ -62,26 +76,6 @@ public class App {
      */
     public void run() {
         fenetre.setVisible(true);
-    }
-
-    /**
-     * Lancer le jeu
-     */
-    public void start() {
-        if(!timer.isRunning()) {
-            timer.start();
-            enPause = false;
-        }
-    }
-
-    /**
-     * Met le jeu en pause
-     */
-    public void pause() {
-        if(timer.isRunning()) {
-            timer.stop();
-            enPause = true;
-        }
     }
 
     /*

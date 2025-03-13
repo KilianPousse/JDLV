@@ -37,8 +37,8 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
     /** Liste des commandes du jeu de la vie (Commande) */
     private List<Commande> commandes = new ArrayList<>();
 
-    /** Regle du jeu effectuée sur les cellules */
-    private Visiteur visiteur;
+    /** Regle du jeu effectuée sur les cellules (Visiteur) */
+    private Regle regle;
 
     /** Numéro de la génération */
     private long generation;
@@ -56,7 +56,7 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
         this.xMax = xMax;
         this.yMax = yMax;
         this.grille = new Cellule[xMax][yMax];
-        this.visiteur = new VisiteurClassique(this);
+        this.regle = new RegleClassique(this);
         this.generation = 0;
     }
 
@@ -68,7 +68,7 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
         this.xMax = DEFAUT_XMAX;
         this.yMax = DEFAUT_YMAX;
         this.grille = new Cellule[DEFAUT_XMAX][DEFAUT_YMAX];
-        this.visiteur = new VisiteurClassique(this);
+        this.regle = new RegleClassique(this);
         this.generation = 0;
     }
 
@@ -113,6 +113,22 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
      */
     public void setGeneration(long generation) {
         this.generation = generation;
+    }
+
+    /**
+     * Getter: Recupération de la regle du jeu
+     * @return regle du jeu en vigueur
+     */ 
+    public Regle getRegle() {
+        return regle;
+    }
+
+    /**
+     * Setter: Affectation d'une nouvelle regle du jeu
+     * @param regle nouvelle regle du jeu
+     */
+    public void setRegle(Regle regle) {
+        this.regle = regle;
     }
 
 
@@ -218,7 +234,7 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
      */
     public void distribueVisiteur() {
         for(Cellule cellule: this) {
-            cellule.accepte(visiteur);
+            cellule.accepte(regle);
         }
     }
 

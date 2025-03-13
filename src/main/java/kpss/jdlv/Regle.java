@@ -1,11 +1,11 @@
 package kpss.jdlv;
 
 /**
- * Classe du Patern Visiteur (Visiteur)
+ * Classe des regle du jeu de la vie (Visiteur)
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public class Visiteur {
+public class Regle {
     
     /** Jeu de la vie */
     protected JeuDeLaVie jeu;
@@ -14,7 +14,7 @@ public class Visiteur {
      * Constructeur de Visiteur
      * @param jeu Jeu de la vie
      */
-    public Visiteur(JeuDeLaVie jeu) {
+    public Regle(JeuDeLaVie jeu) {
         this.jeu = jeu;
     }
 
