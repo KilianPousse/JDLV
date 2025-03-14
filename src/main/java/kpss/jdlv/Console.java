@@ -27,15 +27,7 @@ public class Console implements Observateur {
     @Override
     public void actualise() {
         System.out.println("Generation n°" + jeu.getGeneration() + ":");
-
-        int nbVivantes = 0;
-        for(Cellule cellule: jeu) {
-            if(cellule.estVivante()) {
-                nbVivantes++;
-            }
-        }
-
-        System.out.println("  - Nombre de cellule vivante: " + nbVivantes);
+        System.out.println("  - Nombre de cellule vivante: " + jeu.getNbVivantes());
     }
     
 }

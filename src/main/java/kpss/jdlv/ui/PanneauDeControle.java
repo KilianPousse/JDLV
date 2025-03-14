@@ -1,9 +1,13 @@
-package kpss.jdlv;
+package kpss.jdlv.ui;
+
+import kpss.jdlv.*;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 
-public class PanneauDeControle {
+public class PanneauDeControle extends JPanel {
 
     /* ======= Variables d'instance =======  */
 
@@ -13,19 +17,19 @@ public class PanneauDeControle {
     /** Timer du jeu de la vie */
     private Timer timer;
 
-    /** Panel Principal du Paneau de Control */
-    private JPanel panel;
-
     /** Bouton de demarrage/arrête du jeu */
     private JButton boutonDemarrage;
 
     /** Bouton pour avancer d'une génération si le jeu est en pause */
     private JButton boutonAvancer;
 
-    /* Slider pour modifier la vitesse d'actualisation du jeu */
+    /** Slider pour modifier la vitesse d'actualisation du jeu */
     private JSlider vitesseSlider;
 
-    /* ComboBox des regles du jeu */
+    /** Bordure qui affiche la vitesse */
+    private TitledBorder vitesseBorder;
+
+    /** ComboBox des regles du jeu */
     private JComboBox<Regle> reglesComboBox;
 
     /* ======== Constructeurs ======== */
@@ -36,13 +40,12 @@ public class PanneauDeControle {
      * @param timer timer du jeu de la vie
      */
     public PanneauDeControle(JeuDeLaVie jeu, Timer timer, Regle[] regles) {
+        super(new GridLayout(6, 1));
         // Initialisation des variables
         this.jeu = jeu;
         this.timer = timer;
         
-        // Panel principal
-        panel = new JPanel(new GridLayout(4, 1));
-        panel.setBorder(
+        this.setBorder(
             BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(Color.BLACK),
                 "Panneau de Contôle"
@@ -52,12 +55,20 @@ public class PanneauDeControle {
         // Boutons:
         boutonDemarrage = new JButton("Démarrer");
         boutonAvancer = new JButton("Avancer d'une génération");
+
         // Slider
-        vitesseSlider = new JSlider(100, 1000, timer.getDelay());
-        vitesseSlider.setMajorTickSpacing(100);
-        vitesseSlider.setMinorTickSpacing(50);
+        vitesseSlider = new JSlider(0, 1000, timer.getDelay());
+        vitesseSlider.setMajorTickSpacing(200);
+        vitesseSlider.setMinorTickSpacing(100);
         vitesseSlider.setPaintTicks(true);
         vitesseSlider.setPaintLabels(true);
+        vitesseBorder  = BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.BLACK),
+                "Vitesse: " + timer.getDelay()
+        );
+        vitesseSlider.setBorder(vitesseBorder);
+
+
         // ComboBox
         reglesComboBox = new JComboBox<>(regles);
         reglesComboBox.setSelectedItem(jeu.getRegle());
@@ -68,20 +79,10 @@ public class PanneauDeControle {
         vitesseSlider.addChangeListener((e) -> actualiseVitesse(vitesseSlider.getValue()));
         reglesComboBox.addActionListener((e) -> choixRegle());
 
-        panel.add(boutonDemarrage);
-        panel.add(boutonAvancer);
-        panel.add(vitesseSlider);
-        panel.add(reglesComboBox);
-    }
-
-    /* ======= Getter & Setter ======= */
-
-    /**
-     * Getter: Recuperation du JPanel du Panneau de Control
-     * @return JPanel du Panneau de Control
-     */
-    public JPanel getPanel() {
-        return panel;
+        this.add(boutonDemarrage);
+        this.add(boutonAvancer);
+        this.add(vitesseSlider);
+        this.add(reglesComboBox);
     }
 
 
@@ -91,7 +92,7 @@ public class PanneauDeControle {
      * Permet de mettre le jeu en pause si il est en court d'execution,
      * ou de le mettre en court d'execution si il est en pause
      */
-    private void miseEnPause() {
+    public void miseEnPause() {
         // Mettre le jeu en pause
         if(timer.isRunning()) {
             timer.stop();
@@ -109,7 +110,7 @@ public class PanneauDeControle {
     /**
      * Permet de passer à la génération suivante si le jeu est en pause
      */
-    private void avanceGeneration() {
+    public void avanceGeneration() {
         if(!timer.isRunning()) {
             jeu.calculerGeneration();
         }
@@ -119,9 +120,10 @@ public class PanneauDeControle {
      * Permet d'actualiser le delais du timer du jeu
      * @param vitesse Nouvelle valeur du timer
      */
-    private void actualiseVitesse(int vitesse) {
+    public void actualiseVitesse(int vitesse) {
         timer.setDelay(vitesse);
-        if(!timer.isRunning()) {
+        vitesseBorder.setTitle("Vitesse: " + timer.getDelay());
+        if(timer.isRunning()) {
             timer.restart();
         }
     }
@@ -129,7 +131,7 @@ public class PanneauDeControle {
     /**
      * Permet de choisir une nouvelle regle du jeu
      */
-    private void choixRegle() {
+    public void choixRegle() {
         Regle regle = (Regle) reglesComboBox.getSelectedItem();
         jeu.setRegle(regle);
     }

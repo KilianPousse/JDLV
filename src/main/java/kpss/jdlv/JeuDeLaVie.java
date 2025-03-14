@@ -42,8 +42,10 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
 
     /** Numéro de la génération */
     private long generation;
-    
 
+    /** Nombre de cellules vivantess */
+    private int nbVivantes;
+    
 
     /* =========== Constructeurs =========== */
 
@@ -129,6 +131,14 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
      */
     public void setRegle(Regle regle) {
         this.regle = regle;
+    }
+
+    /**
+     * Getter: Recupération de le nnombre de cellules vivantes
+     * @return Nombre de cellules vivantes
+     */
+    public int getNbVivantes() {
+        return nbVivantes;
     }
 
 
@@ -247,6 +257,13 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
         distribueVisiteur();
         executeCommandes();
         notifieObservateurs();
+
+        nbVivantes = 0;
+        for(Cellule cellule: this) {
+            if(cellule.estVivante()) {
+                nbVivantes++;
+            }
+        }
 
         return generation;
     }
