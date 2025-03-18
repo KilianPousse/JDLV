@@ -22,11 +22,13 @@ public class CmdNouveau implements JDLVCommande {
      */
     @Override
     public void executer() {
+        app.arret();
 
         JDialog fenetreNouveau = new JDialog((Frame) null, "Nouveau", true);
         fenetreNouveau.setSize(300, 200);
         fenetreNouveau.setLocationRelativeTo(app.getFenetre());
         fenetreNouveau.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        fenetreNouveau.setResizable(false);
 
         // Panel principal avec BoxLayout
         JPanel panel = new JPanel();

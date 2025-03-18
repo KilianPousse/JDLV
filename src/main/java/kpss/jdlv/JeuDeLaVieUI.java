@@ -2,6 +2,7 @@ package kpss.jdlv;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
  * Classe representant l'interface du jeu de la vie.
@@ -18,6 +19,8 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
     /** Taille d'une cellule */
     private int taille;
 
+    /** Zoom à appliquer sur l'image (%)*/
+    private int zoom = 100;
 
 
     /* =========== Constructeurs =========== */
@@ -67,8 +70,29 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
         return new Dimension(taille * jeu.getXMax(), taille * jeu.getYMax());
     }
 
+    /**
+     * Setter: Affectation d'un jeu de la vie
+     * @param jeu jeu de la vie
+     */
     public void setJeu(JeuDeLaVie jeu) {
         this.jeu = jeu;
+    }
+
+    /**
+     * Getter: Recuperation du coefficient de zoom
+     * @return coefficient de zoom (%)
+     */
+    public int getZoom() {
+        return zoom;
+    }
+
+    /**
+     * Setter: Affectation du coefficient de zoom
+     * @param zoom coefficient de zoom (%)
+     */
+    public void setZoom(int zoom) {
+        this.zoom = zoom;
+        actualise();
     }
 
     /* ======= Méthodes d'instance ========= */
@@ -85,14 +109,24 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      * Permet de dessiner les cellules
      * @param g graphique de reference
      */
+    @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(Color.BLUE);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        double scale = ((double)zoom)/100;
+        g2d.scale(scale, scale);
 
         for(Cellule cellule: jeu) {
             if(cellule.estVivante()) {
-                g.fillOval(cellule.getX()*taille, cellule.getY()*taille, taille, taille);
+                g2d.setColor(Color.BLUE);
+                g2d.fillOval(cellule.getX() * taille, cellule.getY() * taille, taille, taille);
             }
         }
+
+        g2d.setColor(Color.BLACK); 
+        g2d.setStroke(new BasicStroke(1)); 
+        g2d.drawRect(0, 0, jeu.getXMax() * taille, jeu.getYMax() * taille);
     }
+
 }

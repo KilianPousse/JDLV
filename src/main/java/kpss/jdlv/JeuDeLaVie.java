@@ -321,4 +321,12 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
     public Iterator<Cellule> iterator() {
         return new JeuDeLaVieIterateur(grille);
     }
+
+    /**
+     * Verifie si jeu est vide
+     * @return
+     */
+    public boolean estVide() {
+        return false;
+    }
 }

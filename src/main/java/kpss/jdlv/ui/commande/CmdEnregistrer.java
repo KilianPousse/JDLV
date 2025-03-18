@@ -30,6 +30,7 @@ public class CmdEnregistrer implements JDLVCommande {
      */
     @Override
     public void executer() {
+        app.arret();
         String path = "";
 
         // Ouvrir fenetre de choix de chemin

@@ -74,8 +74,7 @@ public class App implements Observable {
         menu = new BarreMenu(this);
         fenetre.setJMenuBar(menu);
 
-        jeu = new JeuDeLaVie(200, 200);
-        jeu.initialiseGrille(0);
+        jeu = new JDLVVide();
 
         timer = new Timer(200, e -> actualise());
         timer.stop();
@@ -103,6 +102,7 @@ public class App implements Observable {
         attacheObservateur(panneauControle);
         attacheObservateur(menu);
         
+        notifieObservateurs();
     }
 
 
@@ -116,6 +116,10 @@ public class App implements Observable {
         return jeu;
     }
 
+    /**
+     * Setter: Affectation d'un nouveau jeu
+     * @param nouvJeu Nouveau jeu de la vie
+     */
     public void setJeu(JeuDeLaVie nouvJeu) {
         jeu.dettacheObservateur(console);
 
@@ -178,6 +182,14 @@ public class App implements Observable {
         return regles;
     }
 
+    /**
+     * Getter: Recuperation de l'UI
+     * @return UI
+     */
+    public JeuDeLaVieUI getUi() {
+        return ui;
+    }
+
     /* ======= Méthodes d'instance ========= */
 
     /**
@@ -200,6 +212,7 @@ public class App implements Observable {
      */
     public void actualise() {
         jeu.calculerGeneration();
+        System.out.println(fenetre.getSize());
         //notifieObservateurs();
     }
 
@@ -227,6 +240,7 @@ public class App implements Observable {
      * Sortie de l'application
      */
     public void quitter() {
+        arret();
         Toolkit.getDefaultToolkit().beep();
         int choix = JOptionPane.showConfirmDialog(
             fenetre, 
@@ -290,5 +304,13 @@ public class App implements Observable {
         for(Observateur o: observateurs) {
             o.actualise();
         }
+    }
+
+    /**
+     * Verifie si jeu est vide
+     * @return
+     */
+    public boolean estVide() {
+        return jeu.estVide();
     }
 }

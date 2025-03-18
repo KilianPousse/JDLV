@@ -20,6 +20,9 @@ public class BarreMenu extends JMenuBar implements Observateur {
     /** Application du jeu de la vie */
     private App app;
 
+    /** Sous-menu d'enregistrement */
+    private JMenuItem enregistreItem;
+
     /** Sous-menu demarrage/arreter */
     private JMenuItem demarrerArreterItem;
 
@@ -37,7 +40,7 @@ public class BarreMenu extends JMenuBar implements Observateur {
         JMenu fichierMenu = new JMenu("Fichier");
 
         JMenuItem nouveauItem = new JMenuItem("Nouveau");
-        JMenuItem enregistreItem = new JMenuItem("Enregister");
+        enregistreItem = new JMenuItem("Enregister");
         JMenuItem chargerItem = new JMenuItem("Charger");
         JMenuItem quitterItem = new JMenuItem("Quitter");
 
@@ -75,11 +78,6 @@ public class BarreMenu extends JMenuBar implements Observateur {
 
         demarrerArreterItem.addActionListener((e) -> demarrerArreterCommande.executer());
         avancerGenItem.addActionListener((e) -> avancerCommande.executer());
-
-
-
-        avancerGenItem.setEnabled(false);
-        demarrerArreterItem.setEnabled(false);
     }
 
     /**
@@ -87,14 +85,22 @@ public class BarreMenu extends JMenuBar implements Observateur {
      */
     @Override
     public void actualise() {
-        demarrerArreterItem.setEnabled(true);
-        if(app.estEnPause()) {
-            demarrerArreterItem.setText("Démarrer");
-            avancerGenItem.setEnabled(true);
-        }
-        else {
-            demarrerArreterItem.setText("Arrêter");
+        if(app.estVide()) {
+            demarrerArreterItem.setEnabled(false);
             avancerGenItem.setEnabled(false);
+            enregistreItem.setEnabled(false);
+        }
+        else{
+            enregistreItem.setEnabled(true);
+            if(app.estEnPause()) {
+                demarrerArreterItem.setText("Démarrer");
+                demarrerArreterItem.setEnabled(true);
+                avancerGenItem.setEnabled(true);
+            }
+            else {
+                demarrerArreterItem.setText("Arrêter");
+                avancerGenItem.setEnabled(false);
+            }
         }
     }
 

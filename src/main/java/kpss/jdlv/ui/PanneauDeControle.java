@@ -5,7 +5,9 @@ import kpss.jdlv.ui.commande.CmdAvancerGen;
 import kpss.jdlv.ui.commande.CmdChangerVitesse;
 import kpss.jdlv.ui.commande.CmdDemarrerArreter;
 import kpss.jdlv.ui.commande.CmdSelectionRegle;
+import kpss.jdlv.ui.commande.CmdZoomer;
 import kpss.jdlv.ui.commande.JDLVCommande;
+import kpss.jdlv.ui.commande.JDLVCommandeObj;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -34,6 +36,12 @@ public class PanneauDeControle extends JPanel implements Observateur {
     /** ComboBox des regles du jeu */
     private JComboBox<Regle> reglesComboBox;
 
+    /** Slider pour modifier le coefficient de zoom */
+    private JSlider zoomSlider;
+
+    /** Bordure qui affiche le coefficient de zoom */
+    private TitledBorder zoomBorder;
+
     /* ======== Constructeurs ======== */
 
     /**
@@ -54,19 +62,17 @@ public class PanneauDeControle extends JPanel implements Observateur {
 
         // Boutons:
         boutonDemarrage = new JButton("Démarrer");
-        boutonDemarrage.setEnabled(false);
         boutonAvancer = new JButton("Avancer d'une génération");
-        boutonAvancer.setEnabled(false);
 
-        // Slider
+        // Slider: vistesse
         vitesseSlider = new JSlider(0, 1000, app.getDelais());
         vitesseSlider.setMajorTickSpacing(200);
         vitesseSlider.setMinorTickSpacing(100);
         vitesseSlider.setPaintTicks(true);
         vitesseSlider.setPaintLabels(true);
-        vitesseBorder  = BorderFactory.createTitledBorder(
+        vitesseBorder = BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(Color.BLACK),
-                "Vitesse: " + app.getDelais()
+                "Délai: " + app.getDelais() + " ms"
         );
         vitesseSlider.setBorder(vitesseBorder);
 
@@ -75,29 +81,38 @@ public class PanneauDeControle extends JPanel implements Observateur {
         reglesComboBox = new JComboBox<>(app.getRegles());
         reglesComboBox.setSelectedItem(app.getJeu().getRegle());
 
+        // Slider: zoom
+        zoomSlider = new JSlider(0, 200, app.getUi().getZoom());
+        zoomSlider.setMajorTickSpacing(50);
+        zoomSlider.setMinorTickSpacing(25);
+        zoomSlider.setPaintTicks(true);
+        zoomSlider.setPaintLabels(false);
+        zoomBorder = BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.BLACK),
+                "Zoom: "
+        );
+        zoomSlider.setBorder(zoomBorder);
+
         // Commandes du jeu de la vie
         JDLVCommande demarrerArreterCommande = new CmdDemarrerArreter(app);
         JDLVCommande avancerCommande = new CmdAvancerGen(app);
+        JDLVCommandeObj<Integer> vitesseCommande = new CmdChangerVitesse(app);
+        JDLVCommandeObj<Regle> regleCommande = new CmdSelectionRegle(app);
+        JDLVCommandeObj<Integer> zoomCommande = new CmdZoomer(app);
 
         // Initialisation des methodes a effectuer
         boutonDemarrage.addActionListener((e) -> demarrerArreterCommande.executer());
         boutonAvancer.addActionListener((e) -> avancerCommande.executer());
-        vitesseSlider.addChangeListener((e) -> new CmdChangerVitesse(app, vitesseSlider.getValue()).executer());
-        reglesComboBox.addActionListener((e) -> {
-            Regle selectedRegle = (Regle) reglesComboBox.getSelectedItem();
-            if (selectedRegle != null) {
-                System.out.println("Règle sélectionnée : " + selectedRegle);
-                new CmdSelectionRegle(app, selectedRegle).executer();
-            } else {
-                System.out.println("Aucune règle sélectionnée.");
-            }
-        });
+        vitesseSlider.addChangeListener((e) -> vitesseCommande.executer(vitesseSlider.getValue()));
+        reglesComboBox.addActionListener((e) -> regleCommande.executer((Regle) reglesComboBox.getSelectedItem()));
+        zoomSlider.addChangeListener((e) -> zoomCommande.executer(zoomSlider.getValue()));
         
 
         this.add(boutonDemarrage);
         this.add(boutonAvancer);
         this.add(vitesseSlider);
         this.add(reglesComboBox);
+        this.add(zoomSlider);
     }
 
 
@@ -106,18 +121,29 @@ public class PanneauDeControle extends JPanel implements Observateur {
 
     @Override
     public void actualise() {
-        boutonDemarrage.setEnabled(true);
-        if(app.estEnPause()) {
-            boutonDemarrage.setText("Démarrer");
-            boutonAvancer.setEnabled(true);
-            reglesComboBox.setEnabled(true);
-        }
-        else {
-            boutonDemarrage.setText("Arrêter");
+        if(app.estVide()) {
+            boutonDemarrage.setEnabled(false);
             boutonAvancer.setEnabled(false);
             reglesComboBox.setEnabled(false);
+            vitesseSlider.setEnabled(false);
+            zoomSlider.setEnabled(false);
         }
-        vitesseBorder.setTitle("Vitesse: " + app.getDelais());
+        else {
+            vitesseSlider.setEnabled(true);
+            zoomSlider.setEnabled(true);
+            if(app.estEnPause()) {
+                boutonDemarrage.setText("Démarrer");
+                boutonDemarrage.setEnabled(true);
+                boutonAvancer.setEnabled(true);
+                reglesComboBox.setEnabled(true);
+            }
+            else {
+                boutonDemarrage.setText("Arrêter");
+                boutonAvancer.setEnabled(false);
+                reglesComboBox.setEnabled(false);
+            }
+        }
+        vitesseBorder.setTitle("Délai: " + app.getDelais() + " ms");
         reglesComboBox.setSelectedItem(app.getJeu().getRegle());
     }
     
