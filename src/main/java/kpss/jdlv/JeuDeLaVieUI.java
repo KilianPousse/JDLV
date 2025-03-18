@@ -67,6 +67,10 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
         return new Dimension(taille * jeu.getXMax(), taille * jeu.getYMax());
     }
 
+    public void setJeu(JeuDeLaVie jeu) {
+        this.jeu = jeu;
+    }
+
     /* ======= Méthodes d'instance ========= */
 
     /**

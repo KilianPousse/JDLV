@@ -1,11 +1,13 @@
 package kpss.jdlv;
 
+import java.io.Serializable;
+
 /**
  * Classe représentant une cellule du JDLV.
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public class Cellule {
+public class Cellule implements Serializable {
 
     /* ======= Variables d'instances ======= */
 

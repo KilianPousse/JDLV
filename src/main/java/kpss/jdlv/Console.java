@@ -10,15 +10,22 @@ public class Console implements Observateur {
     /* ====== Variables d'instance ====== */
 
     /** Jeu de la vie */
-    private JeuDeLaVie jeu;
+    public JeuDeLaVie jeu;
 
 
     /* ====== Constructeurs ====== */
 
+    /**
+     * Construction d'une console de jeu
+     * @param jeu jeu de la vie
+     */
     public Console(JeuDeLaVie jeu) {
         this.jeu = jeu;
     }
 
+    /* ======== Getter & Setter ======== */
+
+   
     /* ====== Méthodes d'instance ====== */
 
     /**

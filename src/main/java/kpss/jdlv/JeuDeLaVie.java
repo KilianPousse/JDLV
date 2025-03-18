@@ -1,11 +1,16 @@
 package kpss.jdlv;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class JeuDeLaVie implements Observable, Iterable<Cellule> {
+public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
 
     /* ======= Constantes de classe ======== */
 
@@ -45,6 +50,45 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
 
     /** Nombre de cellules vivantess */
     private int nbVivantes;
+
+    /** Liste des règles du jeu possibles */
+    private Regle[] regles = new Regle[] {
+        new RegleClassique(this),
+        new RegleClassique(this)
+    };
+
+
+    /* ========= Méthodes de classe ========= */
+
+    /**
+     * Chargement d'un jeu de la vie
+     * @param path Chemin vers le jeu de la vie
+     * @return Instance du jeu de la vie sauvegardée
+     */
+    public static JeuDeLaVie load(String path) {
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+            return (JeuDeLaVie) ois.readObject();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Sauvegarde l'instance du jeu de la vie
+     * @param jeu Jeu au sauvegarder
+     * @param path Chemin de sauvegarde
+     */
+    public static void save(JeuDeLaVie jeu, String path) {
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+            oos.writeObject(jeu);
+            System.out.println("Jeu de la vie sauvegardee !");
+        } 
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
     
 
     /* =========== Constructeurs =========== */
@@ -141,6 +185,13 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule> {
         return nbVivantes;
     }
 
+    /**
+     * Getter: Recuperation des règles du jeu de la vie
+     * @return règles du jeu de la vie
+     */
+    public Regle[] getRegles() {
+        return regles;
+    }
 
     /* ======= Méthodes d'instance ========= */
 

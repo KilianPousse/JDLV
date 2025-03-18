@@ -15,7 +15,7 @@ package kpss.jdlv;
  * @since 2025-03-11
  */
 public class RegleClassique extends Regle {
-
+    
     /**
      * Constructeur d'un visiteur classique.
      * @param jeu jeu de la vie

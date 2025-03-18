@@ -1,21 +1,23 @@
 package kpss.jdlv.ui;
 
 import kpss.jdlv.*;
+import kpss.jdlv.ui.commande.CmdAvancerGen;
+import kpss.jdlv.ui.commande.CmdChangerVitesse;
+import kpss.jdlv.ui.commande.CmdDemarrerArreter;
+import kpss.jdlv.ui.commande.CmdSelectionRegle;
+import kpss.jdlv.ui.commande.JDLVCommande;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 import java.awt.*;
 
-public class PanneauDeControle extends JPanel {
+public class PanneauDeControle extends JPanel implements Observateur {
 
     /* ======= Variables d'instance =======  */
 
-    /** Jeu de la vie */
-    private JeuDeLaVie jeu;
-
-    /** Timer du jeu de la vie */
-    private Timer timer;
+    /** Application du Jeu de la vie */
+    private App app;
 
     /** Bouton de demarrage/arrête du jeu */
     private JButton boutonDemarrage;
@@ -39,11 +41,9 @@ public class PanneauDeControle extends JPanel {
      * @param jeu Jeu de la vie
      * @param timer timer du jeu de la vie
      */
-    public PanneauDeControle(JeuDeLaVie jeu, Timer timer, Regle[] regles) {
+    public PanneauDeControle(App app) {
         super(new GridLayout(6, 1));
-        // Initialisation des variables
-        this.jeu = jeu;
-        this.timer = timer;
+        this.app = app;
         
         this.setBorder(
             BorderFactory.createTitledBorder(
@@ -54,30 +54,36 @@ public class PanneauDeControle extends JPanel {
 
         // Boutons:
         boutonDemarrage = new JButton("Démarrer");
+        boutonDemarrage.setEnabled(false);
         boutonAvancer = new JButton("Avancer d'une génération");
+        boutonAvancer.setEnabled(false);
 
         // Slider
-        vitesseSlider = new JSlider(0, 1000, timer.getDelay());
+        vitesseSlider = new JSlider(0, 1000, app.getDelais());
         vitesseSlider.setMajorTickSpacing(200);
         vitesseSlider.setMinorTickSpacing(100);
         vitesseSlider.setPaintTicks(true);
         vitesseSlider.setPaintLabels(true);
         vitesseBorder  = BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(Color.BLACK),
-                "Vitesse: " + timer.getDelay()
+                "Vitesse: " + app.getDelais()
         );
         vitesseSlider.setBorder(vitesseBorder);
 
 
         // ComboBox
-        reglesComboBox = new JComboBox<>(regles);
-        reglesComboBox.setSelectedItem(jeu.getRegle());
+        reglesComboBox = new JComboBox<>(app.getJeu().getRegles());
+        reglesComboBox.setSelectedItem(app.getJeu().getRegle());
+
+        // Commandes du jeu de la vie
+        JDLVCommande demarrerArreterCommande = new CmdDemarrerArreter(app);
+        JDLVCommande avancerCommande = new CmdAvancerGen(app);
 
         // Initialisation des methodes a effectuer
-        boutonDemarrage.addActionListener((e) -> miseEnPause());
-        boutonAvancer.addActionListener((e) -> avanceGeneration());
-        vitesseSlider.addChangeListener((e) -> actualiseVitesse(vitesseSlider.getValue()));
-        reglesComboBox.addActionListener((e) -> choixRegle());
+        boutonDemarrage.addActionListener((e) -> demarrerArreterCommande.executer());
+        boutonAvancer.addActionListener((e) -> avancerCommande.executer());
+        vitesseSlider.addChangeListener((e) -> new CmdChangerVitesse(app, vitesseSlider.getValue()).executer());
+        reglesComboBox.addActionListener((e) -> new CmdSelectionRegle(app, (Regle) reglesComboBox.getSelectedItem()));
 
         this.add(boutonDemarrage);
         this.add(boutonAvancer);
@@ -88,52 +94,19 @@ public class PanneauDeControle extends JPanel {
 
     /* ======= Methodes d'instance ======= */
 
-    /**
-     * Permet de mettre le jeu en pause si il est en court d'execution,
-     * ou de le mettre en court d'execution si il est en pause
-     */
-    public void miseEnPause() {
-        // Mettre le jeu en pause
-        if(timer.isRunning()) {
-            timer.stop();
-            boutonDemarrage.setText("Reprendre");
+
+    @Override
+    public void actualise() {
+        boutonDemarrage.setEnabled(true);
+        if(app.estEnPause()) {
+            boutonDemarrage.setText("Démarrer");
             boutonAvancer.setEnabled(true);
         }
-        // Redemarrage
         else {
-            timer.start();
             boutonDemarrage.setText("Arrêter");
             boutonAvancer.setEnabled(false);
         }
-    }
-
-    /**
-     * Permet de passer à la génération suivante si le jeu est en pause
-     */
-    public void avanceGeneration() {
-        if(!timer.isRunning()) {
-            jeu.calculerGeneration();
-        }
-    }
-
-    /**
-     * Permet d'actualiser le delais du timer du jeu
-     * @param vitesse Nouvelle valeur du timer
-     */
-    public void actualiseVitesse(int vitesse) {
-        timer.setDelay(vitesse);
-        vitesseBorder.setTitle("Vitesse: " + timer.getDelay());
-        if(timer.isRunning()) {
-            timer.restart();
-        }
-    }
-
-    /**
-     * Permet de choisir une nouvelle regle du jeu
-     */
-    public void choixRegle() {
-        Regle regle = (Regle) reglesComboBox.getSelectedItem();
-        jeu.setRegle(regle);
+        vitesseBorder.setTitle("Vitesse: " + app.getDelais());
     }
     
 }

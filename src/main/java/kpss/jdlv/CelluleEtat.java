@@ -1,11 +1,13 @@
 package kpss.jdlv;
 
+import java.io.Serializable;
+
 /**
  * Interface qui représente l'état d'une cellule du Jeu De La Vie.
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public interface CelluleEtat {
+public interface CelluleEtat extends Serializable {
     
     /**
      * Permet de modifier l'état d'une cellule.

@@ -1,11 +1,13 @@
 package kpss.jdlv;
 
+import java.io.Serializable;
+
 /**
  * Classe des regle du jeu de la vie (Visiteur)
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public class Regle {
+public class Regle implements Serializable {
     
     /** Jeu de la vie */
     protected JeuDeLaVie jeu;
