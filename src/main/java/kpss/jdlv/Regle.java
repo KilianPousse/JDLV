@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public class Regle implements Serializable {
+public abstract class Regle implements Serializable {
     
     /** Jeu de la vie */
     protected JeuDeLaVie jeu;
@@ -17,6 +17,20 @@ public class Regle implements Serializable {
      * @param jeu Jeu de la vie
      */
     public Regle(JeuDeLaVie jeu) {
+        this.jeu = jeu;
+    }
+
+    /**
+     * Constructeur d'une regle sans jeu
+     */
+    public Regle() {
+        jeu = null;
+    }
+
+    /**
+     * Affectation d'un jeu à la règle
+     */
+    public void setJeu(JeuDeLaVie jeu) {
         this.jeu = jeu;
     }
 

@@ -25,6 +25,13 @@ public class RegleClassique extends Regle {
     }
 
     /**
+     * Creation d'une règle classique
+     */
+    public RegleClassique() {
+        super();
+    }
+
+    /**
      * <p>Visite d'une cellule vivante</p>
      * <ul>
      *   <li><b>Solitude:</b> Une cellule vivante ayant moins de 2 voisines meurt.</li>

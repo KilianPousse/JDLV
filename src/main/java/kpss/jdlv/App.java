@@ -47,6 +47,12 @@ public class App implements Observable {
 
     /** Panel de gauche */
     private JPanel panelGauche;
+
+    /** Ensembles des règles d ujeu de la vie possible */
+    private Regle[] regles = new Regle[] {
+        new RegleClassique(),
+        new RegleStatique()
+    };
     
     /* =========== Constructeurs =========== */
 
@@ -118,6 +124,7 @@ public class App implements Observable {
         ecranInfo = new EcranInfo(jeu); 
         jeu.attacheObservateur(ecranInfo);
         panelGauche.add(ecranInfo, BorderLayout.NORTH); 
+        for(Regle r: regles) r.setJeu(jeu);
         console = new Console(jeu);
         ui.setJeu(jeu);
         jeu.attacheObservateur(ui);
@@ -161,6 +168,14 @@ public class App implements Observable {
      */
     public JFrame getFenetre() {
         return fenetre;
+    }
+
+    /**
+     * Getter: Recuperation des règles du jeu de la vie
+     * @return règles du jeu de la vie
+     */
+    public Regle[] getRegles() {
+        return regles;
     }
 
     /* ======= Méthodes d'instance ========= */

@@ -23,15 +23,15 @@ public class CmdNouveau implements JDLVCommande {
     @Override
     public void executer() {
 
-
         JDialog fenetreNouveau = new JDialog((Frame) null, "Nouveau", true);
         fenetreNouveau.setSize(300, 200);
         fenetreNouveau.setLocationRelativeTo(app.getFenetre());
         fenetreNouveau.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         // Panel principal avec BoxLayout
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Panel pour la taille
         JPanel taillePanel = new JPanel(new BorderLayout(5, 5));
@@ -39,6 +39,7 @@ public class CmdNouveau implements JDLVCommande {
         JTextField tailleSaisie = new JTextField("200", 10);
         taillePanel.add(tailleLabel, BorderLayout.WEST);
         taillePanel.add(tailleSaisie, BorderLayout.CENTER);
+        taillePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
 
         // Panel pour le ratio
         JPanel ratioPanel = new JPanel(new BorderLayout(5, 5));
@@ -47,20 +48,33 @@ public class CmdNouveau implements JDLVCommande {
         JSpinner ratioSaisie = new JSpinner(ratioModel);
         ratioPanel.add(ratioLabel, BorderLayout.WEST);
         ratioPanel.add(ratioSaisie, BorderLayout.CENTER);
+        ratioPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+
+        // Panel pour la séléction de la règle
+        JPanel reglePanel = new JPanel(new BorderLayout(5, 5));
+        JLabel regleLabel = new JLabel("Règle: ");
+        JComboBox<Regle> regleSaisie = new JComboBox<>(app.getRegles());
+        reglePanel.add(regleLabel, BorderLayout.WEST);
+        reglePanel.add(regleSaisie, BorderLayout.CENTER);
+        reglePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 10));
 
         // Ajout des éléments au panel principal
-        contentPanel.add(taillePanel);
-        contentPanel.add(ratioPanel);
+        panel.add(taillePanel);
+        panel.add(ratioPanel);
+        panel.add(reglePanel);
 
         // Bouton de validation
         JButton validerButton = new JButton("Valider");
-        contentPanel.add(validerButton);
+        panel.add(validerButton);
         validerButton.addActionListener((e) -> {
             int taille = Integer.parseInt(tailleSaisie.getText());
             double ratio = (Double) ratioSaisie.getValue();
 
             JeuDeLaVie jeu = new JeuDeLaVie(taille, taille);
-            jeu.setRegle(new RegleClassique(jeu));
+            Regle regle = (Regle) regleSaisie.getSelectedItem();
+            regle.setJeu(jeu);
+
+            jeu.setRegle(regle);
             jeu.initialiseGrille(ratio);
             app.setJeu(jeu);
 
@@ -70,7 +84,7 @@ public class CmdNouveau implements JDLVCommande {
         
 
         // Ajout du panel principal à la fenêtre
-        fenetreNouveau.add(contentPanel);
+        fenetreNouveau.add(panel);
         fenetreNouveau.pack(); // Ajuste automatiquement la taille
         fenetreNouveau.setVisible(true);
     }

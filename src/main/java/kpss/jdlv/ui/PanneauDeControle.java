@@ -72,7 +72,7 @@ public class PanneauDeControle extends JPanel implements Observateur {
 
 
         // ComboBox
-        reglesComboBox = new JComboBox<>(app.getJeu().getRegles());
+        reglesComboBox = new JComboBox<>(app.getRegles());
         reglesComboBox.setSelectedItem(app.getJeu().getRegle());
 
         // Commandes du jeu de la vie
@@ -83,7 +83,16 @@ public class PanneauDeControle extends JPanel implements Observateur {
         boutonDemarrage.addActionListener((e) -> demarrerArreterCommande.executer());
         boutonAvancer.addActionListener((e) -> avancerCommande.executer());
         vitesseSlider.addChangeListener((e) -> new CmdChangerVitesse(app, vitesseSlider.getValue()).executer());
-        reglesComboBox.addActionListener((e) -> new CmdSelectionRegle(app, (Regle) reglesComboBox.getSelectedItem()));
+        reglesComboBox.addActionListener((e) -> {
+            Regle selectedRegle = (Regle) reglesComboBox.getSelectedItem();
+            if (selectedRegle != null) {
+                System.out.println("Règle sélectionnée : " + selectedRegle);
+                new CmdSelectionRegle(app, selectedRegle).executer();
+            } else {
+                System.out.println("Aucune règle sélectionnée.");
+            }
+        });
+        
 
         this.add(boutonDemarrage);
         this.add(boutonAvancer);
@@ -101,12 +110,15 @@ public class PanneauDeControle extends JPanel implements Observateur {
         if(app.estEnPause()) {
             boutonDemarrage.setText("Démarrer");
             boutonAvancer.setEnabled(true);
+            reglesComboBox.setEnabled(true);
         }
         else {
             boutonDemarrage.setText("Arrêter");
             boutonAvancer.setEnabled(false);
+            reglesComboBox.setEnabled(false);
         }
         vitesseBorder.setTitle("Vitesse: " + app.getDelais());
+        reglesComboBox.setSelectedItem(app.getJeu().getRegle());
     }
     
 }

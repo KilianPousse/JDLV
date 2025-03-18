@@ -35,6 +35,7 @@ public class Console implements Observateur {
     public void actualise() {
         System.out.println("Generation n°" + jeu.getGeneration() + ":");
         System.out.println("  - Nombre de cellule vivante: " + jeu.getNbVivantes());
+        System.out.println("  - Regle en cours: " + jeu.getRegle());
     }
     
 }

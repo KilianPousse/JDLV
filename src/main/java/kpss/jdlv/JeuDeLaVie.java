@@ -51,12 +51,6 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
     /** Nombre de cellules vivantess */
     private int nbVivantes;
 
-    /** Liste des règles du jeu possibles */
-    private Regle[] regles = new Regle[] {
-        new RegleClassique(this),
-        new RegleClassique(this)
-    };
-
 
     /* ========= Méthodes de classe ========= */
 
@@ -183,14 +177,6 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
      */
     public int getNbVivantes() {
         return nbVivantes;
-    }
-
-    /**
-     * Getter: Recuperation des règles du jeu de la vie
-     * @return règles du jeu de la vie
-     */
-    public Regle[] getRegles() {
-        return regles;
     }
 
     /* ======= Méthodes d'instance ========= */

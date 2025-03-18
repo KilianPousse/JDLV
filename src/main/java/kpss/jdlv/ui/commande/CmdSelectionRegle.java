@@ -33,6 +33,7 @@ public class CmdSelectionRegle implements JDLVCommande {
     @Override
     public void executer() {
         app.setRegle(regle);
+        
     }
     
 
