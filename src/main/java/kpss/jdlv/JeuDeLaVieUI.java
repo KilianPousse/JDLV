@@ -2,7 +2,6 @@ package kpss.jdlv;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 /**
  * Classe representant l'interface du jeu de la vie.

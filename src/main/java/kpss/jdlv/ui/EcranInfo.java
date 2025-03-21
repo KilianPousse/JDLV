@@ -21,20 +21,21 @@ public class EcranInfo extends JPanel implements Observateur {
      * Constructeur d'un écran d'information.
      * @param jeu Jeu de la Vie
      */
-    public EcranInfo(JeuDeLaVie jeu) {
+    public EcranInfo(JeuDeLaVie jeu, JDLVGraphique graphique) {
         this.jeu = jeu;
         
-        setLayout(new BorderLayout()); // Utilisation d'un layout pour un meilleur affichage
+        setLayout(new BorderLayout());
         setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(Color.BLACK),
                 "Données"
         ));
-        setOpaque(false); // Pour un affichage plus propre
+        setOpaque(false); 
 
         label = new JLabel("", SwingConstants.CENTER);
         add(label, BorderLayout.NORTH);
+        add(graphique);
 
-        actualise(); // Mise à jour initiale
+        actualise(); 
     }
 
     /**

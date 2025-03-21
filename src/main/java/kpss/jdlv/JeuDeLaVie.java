@@ -51,6 +51,9 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
     /** Nombre de cellules vivantess */
     private int nbVivantes;
 
+    /** Donnees liees au nombre d'individu par generation */
+    private List<Integer> donnees = new ArrayList<>();
+
 
     /* ========= Méthodes de classe ========= */
 
@@ -179,6 +182,15 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
         return nbVivantes;
     }
 
+    /**
+     * Getter: Recupération des donnees liees au nombre d'individu
+     * par generation.
+     * @return donnees liees au nombre d'individu par generation
+     */
+    public List<Integer> getDonnees() {
+        return donnees;
+    }
+
     /* ======= Méthodes d'instance ========= */
 
     /**
@@ -293,7 +305,6 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
 
         distribueVisiteur();
         executeCommandes();
-        notifieObservateurs();
 
         nbVivantes = 0;
         for(Cellule cellule: this) {
@@ -301,6 +312,11 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
                 nbVivantes++;
             }
         }
+
+        donnees.add(nbVivantes);
+
+        
+        notifieObservateurs();
 
         return generation;
     }

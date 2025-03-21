@@ -48,6 +48,9 @@ public class App implements Observable {
     /** Panel de gauche */
     private JPanel panelGauche;
 
+    /** Graphique des donnees du jue */
+    private JDLVGraphique graphique;
+
     /** Ensembles des règles d ujeu de la vie possible */
     private Regle[] regles = new Regle[] {
         new RegleClassique(),
@@ -75,6 +78,7 @@ public class App implements Observable {
         fenetre.setJMenuBar(menu);
 
         jeu = new JDLVVide();
+        graphique = new JDLVGraphique(jeu);
 
         timer = new Timer(200, e -> actualise());
         timer.stop();
@@ -82,7 +86,7 @@ public class App implements Observable {
         ui = new JeuDeLaVieUI(jeu, 3);
         console = new Console(jeu);
         panneauControle = new PanneauDeControle(this);
-        ecranInfo = new EcranInfo(jeu);
+        ecranInfo = new EcranInfo(jeu, graphique);
 
         jeu.attacheObservateur(ui);
         jeu.attacheObservateur(console);
@@ -122,10 +126,12 @@ public class App implements Observable {
      */
     public void setJeu(JeuDeLaVie nouvJeu) {
         jeu.dettacheObservateur(console);
+        jeu.dettacheObservateur(graphique);
 
         jeu = nouvJeu;
+        graphique.setJeu(jeu);
         panelGauche.remove(ecranInfo);  
-        ecranInfo = new EcranInfo(jeu); 
+        ecranInfo = new EcranInfo(jeu, graphique); 
         jeu.attacheObservateur(ecranInfo);
         panelGauche.add(ecranInfo, BorderLayout.NORTH); 
         for(Regle r: regles) r.setJeu(jeu);
@@ -188,6 +194,15 @@ public class App implements Observable {
      */
     public JeuDeLaVieUI getUi() {
         return ui;
+    }
+
+    /**
+     * Getter: Recuperation des Donnees liees au nombre
+     * d'individu par generation.
+     * @return Donnees liees au nombre d'individu par generation
+     */
+    public JDLVGraphique getGraphique() {
+        return graphique;
     }
 
     /* ======= Méthodes d'instance ========= */
