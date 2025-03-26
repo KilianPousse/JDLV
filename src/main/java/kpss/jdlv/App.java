@@ -16,6 +16,11 @@ import javax.swing.*;
  */
 public class App implements Observable {
 
+    /* ======= Constantes de classe ======== */
+
+    /** Zoom maximum applicable sur le jeu */
+    public static final int MAX_ZOOM = 200;
+
     /* ======= Variables d'instances ======= */
 
     /** Fenetre de l'application */
@@ -37,7 +42,7 @@ public class App implements Observable {
     private PanneauDeControle panneauControle;
 
     /** Liste des observateurs de l'application */
-    private List<Observateur> observateurs;
+    private List<Observateur> observateurs = new ArrayList<>();
 
     /** Ecran des informations du jeu de la vie */
     private EcranInfo ecranInfo;
@@ -71,8 +76,9 @@ public class App implements Observable {
                 quitter();
             }
         });
-        fenetre.setSize(830, 665);
+        fenetre.setSize(826, 678);
         fenetre.setLocationRelativeTo(null);
+        fenetre.setResizable(false);
 
         menu = new BarreMenu(this);
         fenetre.setJMenuBar(menu);
@@ -204,6 +210,8 @@ public class App implements Observable {
     public JDLVGraphique getGraphique() {
         return graphique;
     }
+
+    
 
     /* ======= Méthodes d'instance ========= */
 

@@ -1,11 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>kpss.jdlv</groupId>
   <artifactId>POUSSE-JDLV</artifactId>
-  <packaging>jar</packaging>
   <version>0.2.1</version>
+  <packaging>jar</packaging>
   <name>POUSSE-JDLV</name>
   <url>http://maven.apache.org</url>
 
@@ -17,7 +18,7 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
-    
+
     <!-- Dépendance JFreeChart pour le graphique -->
     <dependency>
       <groupId>org.jfree</groupId>
@@ -28,17 +29,25 @@
 
   <build>
     <plugins>
-      <!-- Plugin Maven pour construire le JAR avec l'attribut Main-Class dans le manifeste -->
+      <!-- Plugin pour inclure les dépendances dans le JAR final -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version> 
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.4.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
-          <archive>
-            <manifestEntries>
-              <Main-Class>kpss.jdlv.Main</Main-Class>
-            </manifestEntries>
-          </archive>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>kpss.jdlv.Main</mainClass>
+            </transformer>
+          </transformers>
         </configuration>
       </plugin>
     </plugins>

@@ -7,6 +7,7 @@ C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\Commande.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\CommandeMeurt.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\CommandeVit.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\Console.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\JDLVVide.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\JeuDeLaVie.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\JeuDeLaVieIterateur.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\JeuDeLaVieUI.java
@@ -15,14 +16,19 @@ C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\Observable.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\Observateur.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\Regle.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\RegleClassique.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\RegleStatique.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\BarreMenu.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdAvancerGen.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdChangerVitesse.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdCharger.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdDemarrerArreter.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdEnregistrer.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdNouveau.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdQuitter.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdSelectionRegle.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\CmdZoomer.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\JDLVCommande.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\commande\JDLVCommandeObj.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\EcranInfo.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\JDLVGraphique.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\ui\PanneauDeControle.java

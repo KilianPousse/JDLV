@@ -1,53 +1,31 @@
 package kpss.jdlv.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import kpss.jdlv.*;
-import kpss.jdlv.ui.commande.CmdAvancerGen;
-import kpss.jdlv.ui.commande.CmdChangerVitesse;
-import kpss.jdlv.ui.commande.CmdDemarrerArreter;
-import kpss.jdlv.ui.commande.CmdSelectionRegle;
-import kpss.jdlv.ui.commande.CmdZoomer;
-import kpss.jdlv.ui.commande.JDLVCommande;
-import kpss.jdlv.ui.commande.JDLVCommandeObj;
-
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import java.awt.*;
 
-public class PanneauDeControle extends JPanel implements Observateur {
+/**
+ * Panneau de controle du jeu de la vie
+ * @author Kilian POUSSE
+ * @since 2025-03-26
+ */
+public class PanneauDeControle extends JPanel implements Observable, Observateur {
 
     /* ======= Variables d'instance =======  */
 
     /** Application du Jeu de la vie */
     private App app;
 
-    /** Bouton de demarrage/arrête du jeu */
-    private JButton boutonDemarrage;
-
-    /** Bouton pour avancer d'une génération si le jeu est en pause */
-    private JButton boutonAvancer;
-
-    /** Slider pour modifier la vitesse d'actualisation du jeu */
-    private JSlider vitesseSlider;
-
-    /** Bordure qui affiche la vitesse */
-    private TitledBorder vitesseBorder;
-
-    /** ComboBox des regles du jeu */
-    private JComboBox<Regle> reglesComboBox;
-
-    /** Slider pour modifier le coefficient de zoom */
-    private JSlider zoomSlider;
-
-    /** Bordure qui affiche le coefficient de zoom */
-    private TitledBorder zoomBorder;
+    /** Liste des observeurs du panneau */
+    private List<Observateur> observateurs = new ArrayList<>();
 
     /* ======== Constructeurs ======== */
 
     /**
      * Constructeur d'un Panneau de controle
      * @param jeu Jeu de la vie
-     * @param timer timer du jeu de la vie
      */
     public PanneauDeControle(App app) {
         super(new GridLayout(6, 1));
@@ -60,91 +38,64 @@ public class PanneauDeControle extends JPanel implements Observateur {
                 )
             );
 
-        // Boutons:
-        boutonDemarrage = new JButton("Démarrer");
-        boutonAvancer = new JButton("Avancer d'une génération");
+        Bouton demarrageBouton = new DemarrageBouton(app);
+        Bouton avancerBouton = new AvancerBouton(app);
+        Curseur vitesseCurseur = new VitesseCurseur(app);
+        Choix<Regle> regleChoix = new RegleChoix(app);
+        Curseur zoomCurseur = new ZoomCurseur(app);
 
-        // Slider: vistesse
-        vitesseSlider = new JSlider(0, 1000, app.getDelais());
-        vitesseSlider.setMajorTickSpacing(200);
-        vitesseSlider.setMinorTickSpacing(100);
-        vitesseSlider.setPaintTicks(true);
-        vitesseSlider.setPaintLabels(true);
-        vitesseBorder = BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
-                "Délai: " + app.getDelais() + " ms"
-        );
-        vitesseSlider.setBorder(vitesseBorder);
+        this.add(demarrageBouton.getBouton());
+        this.add(avancerBouton.getBouton());
+        this.add(vitesseCurseur.getCurseur());
+        this.add(regleChoix.getChoix());
+        this.add(zoomCurseur.getCurseur());
 
-
-        // ComboBox
-        reglesComboBox = new JComboBox<>(app.getRegles());
-        reglesComboBox.setSelectedItem(app.getJeu().getRegle());
-
-        // Slider: zoom
-        zoomSlider = new JSlider(0, 200, app.getUi().getZoom());
-        zoomSlider.setMajorTickSpacing(50);
-        zoomSlider.setMinorTickSpacing(25);
-        zoomSlider.setPaintTicks(true);
-        zoomSlider.setPaintLabels(false);
-        zoomBorder = BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
-                "Zoom: "
-        );
-        zoomSlider.setBorder(zoomBorder);
-
-        // Commandes du jeu de la vie
-        JDLVCommande demarrerArreterCommande = new CmdDemarrerArreter(app);
-        JDLVCommande avancerCommande = new CmdAvancerGen(app);
-        JDLVCommandeObj<Integer> vitesseCommande = new CmdChangerVitesse(app);
-        JDLVCommandeObj<Regle> regleCommande = new CmdSelectionRegle(app);
-        JDLVCommandeObj<Integer> zoomCommande = new CmdZoomer(app);
-
-        // Initialisation des methodes a effectuer
-        boutonDemarrage.addActionListener((e) -> demarrerArreterCommande.executer());
-        boutonAvancer.addActionListener((e) -> avancerCommande.executer());
-        vitesseSlider.addChangeListener((e) -> vitesseCommande.executer(vitesseSlider.getValue()));
-        reglesComboBox.addActionListener((e) -> regleCommande.executer((Regle) reglesComboBox.getSelectedItem()));
-        zoomSlider.addChangeListener((e) -> zoomCommande.executer(zoomSlider.getValue()));
-        
-
-        this.add(boutonDemarrage);
-        this.add(boutonAvancer);
-        this.add(vitesseSlider);
-        this.add(reglesComboBox);
-        this.add(zoomSlider);
+        attacheObservateur(demarrageBouton);
+        attacheObservateur(avancerBouton);
+        attacheObservateur(vitesseCurseur);
+        attacheObservateur(regleChoix);
+        attacheObservateur(zoomCurseur);
     }
 
+    /**
+     * Getter: Recuperation de l'app
+     * @return app
+     */
+    public App getApp() {
+        return app;
+    }
 
-    /* ======= Methodes d'instance ======= */
-
-
+    /**
+     * Actualiser le panneau en actualisant ses observateurs
+     */
     @Override
     public void actualise() {
-        if(app.estVide()) {
-            boutonDemarrage.setEnabled(false);
-            boutonAvancer.setEnabled(false);
-            reglesComboBox.setEnabled(false);
-            vitesseSlider.setEnabled(false);
-            zoomSlider.setEnabled(false);
-        }
-        else {
-            vitesseSlider.setEnabled(true);
-            zoomSlider.setEnabled(true);
-            if(app.estEnPause()) {
-                boutonDemarrage.setText("Démarrer");
-                boutonDemarrage.setEnabled(true);
-                boutonAvancer.setEnabled(true);
-                reglesComboBox.setEnabled(true);
-            }
-            else {
-                boutonDemarrage.setText("Arrêter");
-                boutonAvancer.setEnabled(false);
-                reglesComboBox.setEnabled(false);
-            }
-        }
-        vitesseBorder.setTitle("Délai: " + app.getDelais() + " ms");
-        reglesComboBox.setSelectedItem(app.getJeu().getRegle());
+        notifieObservateurs();
     }
-    
+
+    /**
+     * Attacher un nouvel observateur
+     */
+    @Override
+    public void attacheObservateur(Observateur o) {
+        observateurs.add(o);
+    }
+
+    /**
+     * Déttacher un observateur
+     */
+    @Override
+    public void dettacheObservateur(Observateur o) {
+        observateurs.remove(o);
+    }
+
+    /**
+     * Notifier les observateurs pour qu'ils s'actualise
+     */
+    @Override
+    public void notifieObservateurs() {
+        for(Observateur o: observateurs) {
+            o.actualise();
+        }
+    }
 }

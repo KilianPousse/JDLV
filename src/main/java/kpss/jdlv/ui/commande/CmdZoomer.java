@@ -27,5 +27,6 @@ public class CmdZoomer implements JDLVCommandeObj<Integer> {
     @Override
     public void executer(Integer zoom) {
         app.getUi().setZoom(zoom);
+        app.notifieObservateurs();
     }
 }
