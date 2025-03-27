@@ -2,6 +2,7 @@ package kpss.jdlv;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import kpss.jdlv.exception.*;
 
 public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
 
@@ -61,31 +63,35 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
      * Chargement d'un jeu de la vie
      * @param path Chemin vers le jeu de la vie
      * @return Instance du jeu de la vie sauvegardée
+     * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public static JeuDeLaVie load(String path) {
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
+    public static JeuDeLaVie load(String path) throws Exception {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path))) {
             return (JeuDeLaVie) ois.readObject();
         }
         catch(Exception e) {
-            e.printStackTrace();
+            throw new LoadJDLVException(path);
         }
-        return null;
     }
+
 
     /**
      * Sauvegarde l'instance du jeu de la vie
-     * @param jeu Jeu au sauvegarder
+     * @param jeu Jeu à sauvegarder
      * @param path Chemin de sauvegarde
+     * @throws IOException
      */
-    public static void save(JeuDeLaVie jeu, String path) {
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
+    public static void save(JeuDeLaVie jeu, String path) throws Exception {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
             oos.writeObject(jeu);
-            System.out.println("Jeu de la vie sauvegardee !");
-        } 
+            System.out.println("Jeu de la vie sauvegardé !");
+        }
         catch(Exception e) {
-            e.printStackTrace();
+            throw new SaveJDLVException(path);
         }
     }
+
     
 
     /* =========== Constructeurs =========== */
@@ -97,10 +103,10 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
     */
     public JeuDeLaVie(int taille) throws Exception {
         if(taille > MAX_TAILLE) {
-            throw new Exception("La taille maximale de la grille est "+ MAX_TAILLE + ".");
+            throw new MaxTailleException();
         }
         if(MINI_TAILLE > taille) {
-            throw new Exception("La taille minimal de la grille est "+ MINI_TAILLE + ".");
+            throw new MiniTailleException();
         }
         this.taille = taille;
         this.grille = new Cellule[taille][taille];

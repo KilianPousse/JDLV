@@ -288,7 +288,12 @@ public class App implements Observable {
      * @param fichier Chemin vers le fichier 
      */
     public void enregiste(String fichier) {
-        JeuDeLaVie.save(jeu, fichier);
+        try {
+            JeuDeLaVie.save(jeu, fichier);
+        }
+        catch(Exception e) {
+            FenetreErreur.ouvrir(this, e);
+        }
     }
 
     /**
@@ -299,7 +304,13 @@ public class App implements Observable {
         
         jeu.dettacheObservateur(console);
 
-        JeuDeLaVie nouvJeu = JeuDeLaVie.load(fichier);
+        JeuDeLaVie nouvJeu = new JDLVVide();
+        try {
+            nouvJeu = JeuDeLaVie.load(fichier);
+        }
+        catch(Exception e) {
+            FenetreErreur.ouvrir(this, e);
+        }
         setJeu(nouvJeu);
         
         fenetre.setCursor(Cursor.getDefaultCursor());

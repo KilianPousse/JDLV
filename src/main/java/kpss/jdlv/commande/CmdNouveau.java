@@ -35,6 +35,14 @@ public class CmdNouveau implements JDLVCommande {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Panel Titre
+        JPanel titrePanel = new JPanel(new BorderLayout(5, 5));
+        JLabel titreLabel = new JLabel("Initialisation: ");
+        Font titreFont = titreLabel.getFont();
+        titreLabel.setFont(new Font(titreFont.getFontName(), Font.BOLD, titreFont.getSize()+2)); 
+        titrePanel.add(titreLabel, BorderLayout.WEST);
+        titrePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         // Panel pour la taille
         JPanel taillePanel = new JPanel(new BorderLayout(5, 5));
         JLabel tailleLabel = new JLabel("Taille: ");
@@ -61,6 +69,7 @@ public class CmdNouveau implements JDLVCommande {
         reglePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 10));
 
         // Ajout des éléments au panel principal
+        panel.add(titrePanel);
         panel.add(taillePanel);
         panel.add(ratioPanel);
         panel.add(reglePanel);
@@ -78,13 +87,7 @@ public class CmdNouveau implements JDLVCommande {
             }
             catch(Exception exception) {
                 fenetreNouveau.dispose();
-                Toolkit.getDefaultToolkit().beep();
-                JOptionPane.showMessageDialog(
-                    app.getFenetre(),                   
-                    exception.getMessage(),                
-                    "Erreur d'initialisation",               
-                    JOptionPane.ERROR_MESSAGE
-                );
+                FenetreErreur.ouvrir(app, exception);
                 return;
             }
 

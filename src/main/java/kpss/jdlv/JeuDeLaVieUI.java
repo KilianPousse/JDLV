@@ -1,13 +1,7 @@
 package kpss.jdlv;
 
 import javax.swing.*;
-
-import kpss.jdlv.commande.CmdZoomer;
-import kpss.jdlv.commande.JDLVCommande;
-import kpss.jdlv.commande.JDLVCommandeObj;
-
 import java.awt.*;
-import java.awt.event.*;;
 
 /**
  * Classe representant l'interface du jeu de la vie.
@@ -147,7 +141,11 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
     }
 
 
-
+    /**
+     * Fait zoomer le rendu du jeu de la vie
+     * @param zoom Nouvelle coef de zoom
+     * @param app Application du JDLV
+     */
     public void zoomer(int zoom, App app) {
         setZoom(zoom);
         app.notifieObservateurs();
