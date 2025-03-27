@@ -19,7 +19,10 @@ public class App implements Observable {
     /* ======= Constantes de classe ======== */
 
     /** Zoom maximum applicable sur le jeu */
-    public static final int MAX_ZOOM = 200;
+    public static final int MAX_ZOOM = 400;
+
+    /** Zoom minimal applicable sur le jeu */
+    public static final int MINI_ZOOM = 1;
 
     /* ======= Variables d'instances ======= */
 
@@ -89,7 +92,7 @@ public class App implements Observable {
         timer = new Timer(200, e -> actualise());
         timer.stop();
 
-        ui = new JeuDeLaVieUI(jeu, 3);
+        ui = new JeuDeLaVieUI(this, jeu, 3);
         console = new Console(jeu);
         panneauControle = new PanneauDeControle(this);
         ecranInfo = new EcranInfo(jeu, graphique);
@@ -143,6 +146,7 @@ public class App implements Observable {
         for(Regle r: regles) r.setJeu(jeu);
         console = new Console(jeu);
         ui.setJeu(jeu);
+        ui.zoomer(100, this);
         jeu.attacheObservateur(ui);
         jeu.attacheObservateur(console);
         notifieObservateurs();

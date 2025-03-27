@@ -1,8 +1,7 @@
 package kpss.jdlv.ui;
 
-import kpss.jdlv.ui.commande.*;
-
 import kpss.jdlv.*;
+import kpss.jdlv.commande.*;
 
 /**
  * Etat du bouton de démarrage = Démarrage

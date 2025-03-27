@@ -1,8 +1,8 @@
 package kpss.jdlv.ui;
 
 import kpss.jdlv.*;
-import kpss.jdlv.ui.commande.CmdSelectionRegle;
-import kpss.jdlv.ui.commande.JDLVCommandeObj;
+import kpss.jdlv.commande.CmdSelectionRegle;
+import kpss.jdlv.commande.JDLVCommandeObj;
 
 public class RegleChoix extends AbstractChoix<Regle> {
 

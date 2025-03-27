@@ -1,8 +1,8 @@
 package kpss.jdlv.ui;
 
 import kpss.jdlv.App;
-import kpss.jdlv.ui.commande.CmdDemarrerArreter;
-import kpss.jdlv.ui.commande.JDLVCommande;
+import kpss.jdlv.commande.CmdDemarrerArreter;
+import kpss.jdlv.commande.JDLVCommande;
 
 /**
  * Etat du bouton de démarrage = Arrêt

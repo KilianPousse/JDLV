@@ -1,4 +1,4 @@
-package kpss.jdlv.ui.commande;
+package kpss.jdlv.commande;
 
 import java.awt.*;
 import javax.swing.*;
@@ -72,7 +72,22 @@ public class CmdNouveau implements JDLVCommande {
             int taille = Integer.parseInt(tailleSaisie.getText());
             double ratio = (Double) ratioSaisie.getValue();
 
-            JeuDeLaVie jeu = new JeuDeLaVie(taille, taille);
+            JeuDeLaVie jeu;
+            try {
+                jeu = new JeuDeLaVie(taille);
+            }
+            catch(Exception exception) {
+                fenetreNouveau.dispose();
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(
+                    app.getFenetre(),                   
+                    exception.getMessage(),                
+                    "Erreur d'initialisation",               
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
             Regle regle = (Regle) regleSaisie.getSelectedItem();
             regle.setJeu(jeu);
 

@@ -2,13 +2,13 @@ package kpss.jdlv.ui;
 
 import javax.swing.*;
 import kpss.jdlv.*;
-import kpss.jdlv.ui.commande.CmdAvancerGen;
-import kpss.jdlv.ui.commande.CmdCharger;
-import kpss.jdlv.ui.commande.CmdDemarrerArreter;
-import kpss.jdlv.ui.commande.CmdEnregistrer;
-import kpss.jdlv.ui.commande.CmdNouveau;
-import kpss.jdlv.ui.commande.CmdQuitter;
-import kpss.jdlv.ui.commande.JDLVCommande;
+import kpss.jdlv.commande.CmdAvancerGen;
+import kpss.jdlv.commande.CmdCharger;
+import kpss.jdlv.commande.CmdDemarrerArreter;
+import kpss.jdlv.commande.CmdEnregistrer;
+import kpss.jdlv.commande.CmdNouveau;
+import kpss.jdlv.commande.CmdQuitter;
+import kpss.jdlv.commande.JDLVCommande;
 
 /**
  * Classe representant une barre de menu de l'application

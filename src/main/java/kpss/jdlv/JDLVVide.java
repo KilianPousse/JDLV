@@ -11,7 +11,7 @@ public class JDLVVide extends JeuDeLaVie {
      * Constructeur de la classe Jeu de la vie Vide
      */
     public JDLVVide() {
-        super(0, 0);
+        super();
     }
 
     /**

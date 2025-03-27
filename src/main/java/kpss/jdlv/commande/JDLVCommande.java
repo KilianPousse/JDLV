@@ -1,4 +1,4 @@
-package kpss.jdlv.ui.commande;
+package kpss.jdlv.commande;
 
 /**
  * Interface representant les commandes possibles present
@@ -6,9 +6,11 @@ package kpss.jdlv.ui.commande;
  * @author Kilian POUSSE
  * @since 2025-03-17
  */
-public interface JDLVCommandeObj<T> {
+public interface JDLVCommande {
+    
     /**
      * Permet d'executer la commande
      */
-    public void executer(T obj);
+    public void executer();
+
 }

@@ -1,4 +1,4 @@
-package kpss.jdlv.ui.commande;
+package kpss.jdlv.commande;
 
 import kpss.jdlv.App;
 import kpss.jdlv.Regle;

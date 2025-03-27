@@ -1,4 +1,4 @@
-package kpss.jdlv.ui.commande;
+package kpss.jdlv.commande;
 
 import kpss.jdlv.App;
 
@@ -26,7 +26,7 @@ public class CmdZoomer implements JDLVCommandeObj<Integer> {
      */
     @Override
     public void executer(Integer zoom) {
-        app.getUi().setZoom(zoom);
+        app.getUi().zoomer(zoom, app);
         app.notifieObservateurs();
     }
 }

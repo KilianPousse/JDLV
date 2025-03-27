@@ -1,8 +1,8 @@
 package kpss.jdlv.ui;
 
 import kpss.jdlv.App;
-import kpss.jdlv.ui.commande.CmdZoomer;
-import kpss.jdlv.ui.commande.JDLVCommandeObj;
+import kpss.jdlv.commande.CmdZoomer;
+import kpss.jdlv.commande.JDLVCommandeObj;
 
 public class ZoomCurseur extends AbstractCurseur {
 

@@ -1,8 +1,8 @@
 package kpss.jdlv.ui;
 
 import kpss.jdlv.App;
-import kpss.jdlv.ui.commande.CmdAvancerGen;
-import kpss.jdlv.ui.commande.JDLVCommande;
+import kpss.jdlv.commande.CmdAvancerGen;
+import kpss.jdlv.commande.JDLVCommande;
 
 /**
  * Bouton qui permet d'avancer d'une génération

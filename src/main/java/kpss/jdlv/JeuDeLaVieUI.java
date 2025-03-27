@@ -1,7 +1,13 @@
 package kpss.jdlv;
 
 import javax.swing.*;
+
+import kpss.jdlv.commande.CmdZoomer;
+import kpss.jdlv.commande.JDLVCommande;
+import kpss.jdlv.commande.JDLVCommandeObj;
+
 import java.awt.*;
+import java.awt.event.*;;
 
 /**
  * Classe representant l'interface du jeu de la vie.
@@ -29,10 +35,12 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      * @param jeu Jeu de la vie
      * @param taille Taille d'une cellule
      */
-    public JeuDeLaVieUI(JeuDeLaVie jeu, int taille) {
+    public JeuDeLaVieUI(App app, JeuDeLaVie jeu, int taille) {
         this.jeu = jeu;
         this.jeu.attacheObservateur(this);
         this.taille = taille;
+
+        this.addMouseWheelListener((e) -> zoomer(zoom - e.getWheelRotation() * 10, app));
     }
 
     /* ========== Getter & Setter ========== */
@@ -66,7 +74,7 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      * @return dimension de la fenetre
      */
     public Dimension getDimFrame() {
-        return new Dimension(taille * jeu.getXMax(), taille * jeu.getYMax());
+        return new Dimension(taille * jeu.getTaille(), taille * jeu.getTaille());
     }
 
     /**
@@ -90,6 +98,7 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
      * @param zoom coefficient de zoom (%)
      */
     public void setZoom(int zoom) {
+        if(App.MINI_ZOOM > zoom || zoom > App.MAX_ZOOM) return;
         this.zoom = zoom;
         actualise();
     }
@@ -111,21 +120,37 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        double scale = ((double)zoom)/100;
-        g2d.scale(scale, scale);
 
-        for(Cellule cellule: jeu) {
-            if(cellule.estVivante()) {
+        double echelle = ((double) zoom) / 100;
+
+        int longueur = jeu.getTaille() * taille;
+        int largeur = jeu.getTaille() * taille;
+        int x = (int) ((getWidth() - longueur * echelle) / 2);
+        int y = (int) ((getHeight() - largeur * echelle) / 2);
+        g2d.translate(x, y);
+        
+        g2d.scale(echelle, echelle);
+
+        for (Cellule cellule : jeu) {
+            if (cellule.estVivante()) {
                 g2d.setColor(Color.BLUE);
                 g2d.fillOval(cellule.getX() * taille, cellule.getY() * taille, taille, taille);
             }
         }
 
-        g2d.setColor(Color.BLACK); 
-        g2d.setStroke(new BasicStroke(1)); 
-        g2d.drawRect(0, 0, jeu.getXMax() * taille, jeu.getYMax() * taille);
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(1));
+        g2d.drawRect(0, 0, jeu.getTaille() * taille, jeu.getTaille() * taille);
+    }
+
+
+
+    public void zoomer(int zoom, App app) {
+        setZoom(zoom);
+        app.notifieObservateurs();
     }
 
 }

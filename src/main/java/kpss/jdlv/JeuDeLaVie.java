@@ -14,14 +14,17 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
 
     /* ======= Constantes de classe ======== */
 
-    /** Valeur par default de 'xMax' */
-    public static final int DEFAUT_XMAX = 100;
-
-    /** Valeur par default de 'yMax' */
-    public static final int DEFAUT_YMAX = 100;
+    /** Valeur par default de 'taille' */
+    public static final int DEFAUT_TAILLE = 200;
 
     /** Valeur par default de 'ration' */
     public static final double DEFAUT_RATION = 5;
+
+    /** Taille maximum applicable sur le jeu */
+    public static final int MAX_TAILLE = 2000;
+
+    /** Taille minimal applicable sur le jeu */
+    public static final int MINI_TAILLE = 10;
 
 
     
@@ -30,11 +33,8 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
     /** Grille qui stocke les cellules du JDLV */
     private Cellule[][] grille;
 
-    /** Coordonnée maximal sur l'axe X */
-    private int xMax;
-
-    /** Coordonnée maximal sur l'axe Y */
-    private int yMax;
+    /** Taille de la grille */
+    private int taille;
 
     /** Liste des observateurs (Observateur) */
     private List<Observateur> observateurs = new ArrayList<>();
@@ -92,13 +92,18 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
 
     /**
      * Constructeur d'un je de la vie avec des parametres.
-     * @param xMax Coordonnée maximal sur l'axe X
-     * @param yMax Coordonnée maximal sur l'axe Y
-     */
-    public JeuDeLaVie(int xMax, int yMax) {
-        this.xMax = xMax;
-        this.yMax = yMax;
-        this.grille = new Cellule[xMax][yMax];
+     * @param taille Taille de la grille
+    * @throws Exception 
+    */
+    public JeuDeLaVie(int taille) throws Exception {
+        if(taille > MAX_TAILLE) {
+            throw new Exception("La taille maximale de la grille est "+ MAX_TAILLE + ".");
+        }
+        if(MINI_TAILLE > taille) {
+            throw new Exception("La taille minimal de la grille est "+ MINI_TAILLE + ".");
+        }
+        this.taille = taille;
+        this.grille = new Cellule[taille][taille];
         this.regle = new RegleClassique(this);
         this.generation = 0;
     }
@@ -108,9 +113,8 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
      * par defaut.
      */
     public JeuDeLaVie() {
-        this.xMax = DEFAUT_XMAX;
-        this.yMax = DEFAUT_YMAX;
-        this.grille = new Cellule[DEFAUT_XMAX][DEFAUT_YMAX];
+        this.taille = 0;
+        this.grille = new Cellule[taille][taille];
         this.regle = new RegleClassique(this);
         this.generation = 0;
     }
@@ -128,18 +132,10 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
 
     /**
      * Getter: Recupération de la coordonnée maximal sur l'axe X
-     * @return Coordonnée maximal sur l'axe X
+     * @return Taille de la grille
      */
-    public int getXMax() {
-        return xMax;
-    }
-
-    /**
-     * Getter: Recupération de la coordonnée maximal sur l'axe Y
-     * @return Coordonnée maximal sur l'axe Y
-     */
-    public int getYMax() {
-        return yMax;
+    public int getTaille() {
+        return taille;
     }
 
     /**
@@ -202,8 +198,8 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
         Random rand = new Random();
 
         // Parcours de la grille de jeu
-        for(int i=0; i<xMax; i++) {
-            for(int j=0; j<yMax; j++) {
+        for(int i=0; i<taille; i++) {
+            for(int j=0; j<taille; j++) {
 
                 // Etat de la cellule
                 CelluleEtat etat = null;
@@ -239,7 +235,7 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
      * @return Vrai si la position est valide, Faux sinon
      */
     public boolean estValide(int x, int y) {
-        return ((0 <= x) && (x < xMax)) && ((0 <= y) && (y < yMax));
+        return ((0 <= x) && (x < taille)) && ((0 <= y) && (y < taille));
     }
 
     /**

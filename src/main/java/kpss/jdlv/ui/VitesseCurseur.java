@@ -1,8 +1,8 @@
 package kpss.jdlv.ui;
 
 import kpss.jdlv.App;
-import kpss.jdlv.ui.commande.CmdChangerVitesse;
-import kpss.jdlv.ui.commande.JDLVCommandeObj;
+import kpss.jdlv.commande.CmdChangerVitesse;
+import kpss.jdlv.commande.JDLVCommandeObj;
 
 public class VitesseCurseur extends AbstractCurseur {
 
