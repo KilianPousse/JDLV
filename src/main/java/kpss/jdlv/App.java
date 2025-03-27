@@ -62,7 +62,8 @@ public class App implements Observable {
     /** Ensembles des règles d ujeu de la vie possible */
     private Regle[] regles = new Regle[] {
         new RegleClassique(),
-        new RegleStatique()
+        new RegleDayNight(),
+        new RegleStatique(),
     };
     
     /* =========== Constructeurs =========== */

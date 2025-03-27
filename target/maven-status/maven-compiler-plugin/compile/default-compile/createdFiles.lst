@@ -7,6 +7,7 @@ kpss\jdlv\Cellule.class
 kpss\jdlv\commande\JDLVCommandeObj.class
 kpss\jdlv\CelluleEtatMort.class
 kpss\jdlv\commande\CmdZoomer.class
+kpss\jdlv\exception\MiniTailleException.class
 kpss\jdlv\CommandeMeurt.class
 kpss\jdlv\commande\CmdEnregistrer.class
 kpss\jdlv\ui\DemarrageBoutonEtat.class
@@ -23,6 +24,7 @@ kpss\jdlv\ui\AbstractCurseur.class
 kpss\jdlv\ui\Choix.class
 kpss\jdlv\ui\BarreMenu.class
 kpss\jdlv\Observable.class
+kpss\jdlv\exception\LoadJDLVException.class
 kpss\jdlv\commande\CmdDemarrerArreter.class
 kpss\jdlv\commande\CmdAvancerGen.class
 kpss\jdlv\ui\DemarrageBoutonEtatStop.class
@@ -42,8 +44,11 @@ kpss\jdlv\commande\CmdNouveau.class
 kpss\jdlv\CelluleEtatVivant.class
 kpss\jdlv\ui\Curseur.class
 kpss\jdlv\commande\CmdChangerVitesse.class
+kpss\jdlv\exception\MaxTailleException.class
 kpss\jdlv\App$1.class
+kpss\jdlv\exception\SaveJDLVException.class
 kpss\jdlv\Observateur.class
 kpss\jdlv\JeuDeLaVieIterateur.class
 kpss\jdlv\Commande.class
 kpss\jdlv\ui\AbstractBouton.class
+kpss\jdlv\FenetreErreur.class

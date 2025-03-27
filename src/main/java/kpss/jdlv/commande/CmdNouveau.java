@@ -54,7 +54,7 @@ public class CmdNouveau implements JDLVCommande {
         // Panel pour le ratio
         JPanel ratioPanel = new JPanel(new BorderLayout(5, 5));
         JLabel ratioLabel = new JLabel("Ratio: ");
-        SpinnerModel ratioModel = new SpinnerNumberModel(10.0, 0.0, 100.0, 1.0);
+        SpinnerModel ratioModel = new SpinnerNumberModel(33.0, 0.0, 100.0, 1.0);
         JSpinner ratioSaisie = new JSpinner(ratioModel);
         ratioPanel.add(ratioLabel, BorderLayout.WEST);
         ratioPanel.add(ratioSaisie, BorderLayout.CENTER);
@@ -64,6 +64,7 @@ public class CmdNouveau implements JDLVCommande {
         JPanel reglePanel = new JPanel(new BorderLayout(5, 5));
         JLabel regleLabel = new JLabel("Règle: ");
         JComboBox<Regle> regleSaisie = new JComboBox<>(app.getRegles());
+        regleSaisie.setSelectedItem(app.getJeu().getRegle());
         reglePanel.add(regleLabel, BorderLayout.WEST);
         reglePanel.add(regleSaisie, BorderLayout.CENTER);
         reglePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 10));

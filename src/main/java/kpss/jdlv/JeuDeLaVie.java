@@ -301,6 +301,7 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
 
     /**
      * Calculer la nouvelle generation
+     * @return Numero de la generation
      */
     public long calculerGeneration() {
         generation += 1 ;

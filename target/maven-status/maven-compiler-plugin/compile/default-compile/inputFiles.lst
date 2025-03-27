@@ -18,6 +18,11 @@ C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\commande\JDLVCommandeObj.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\CommandeMeurt.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\CommandeVit.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\Console.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\exception\LoadJDLVException.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\exception\MaxTailleException.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\exception\MiniTailleException.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\exception\SaveJDLVException.java
+C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\FenetreErreur.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\JDLVVide.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\JeuDeLaVie.java
 C:\Users\kilia\GitHub\JDLV\src\main\java\kpss\jdlv\JeuDeLaVieIterateur.java
