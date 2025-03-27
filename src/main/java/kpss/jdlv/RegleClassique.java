@@ -14,21 +14,13 @@ package kpss.jdlv;
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public class RegleClassique extends Regle {
-    
-    /**
-     * Constructeur d'un visiteur classique.
-     * @param jeu jeu de la vie
-     */
-    public RegleClassique(JeuDeLaVie jeu) {
-        super(jeu);
-    }
+public class RegleClassique extends AbstractRegle {
 
     /**
      * Creation d'une règle classique
      */
     public RegleClassique() {
-        super();
+        super("Règle Classique");
     }
 
     /**
@@ -62,15 +54,6 @@ public class RegleClassique extends Regle {
         if(voisines == 3) {
             jeu.ajouteCommande(new CommandeVit(cellule));
         }
-    }
-
-    /**
-     * Representation en String de la regle
-     * @return la representation
-     */
-    @Override
-    public String toString() {
-        return "Règle Classique";
     }
     
 }

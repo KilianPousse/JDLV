@@ -13,24 +13,14 @@ package kpss.jdlv;
  * @author Kilian POUSSE
  * @since 2025-03-27
  */
-public class RegleDayNight extends Regle {
-    
-    /**
-     * Constructeur d'un visiteur 'Day & Night'.
-     * @param jeu jeu de la vie
-     */
-    public RegleDayNight(JeuDeLaVie jeu) {
-        super(jeu);
-    }
-    
+public class RegleDayNight extends AbstractRegle {
     
     /**
      * Constructeur d'un visiteur 'Day & Night'.
      */
     public RegleDayNight() {
-        super();
+        super("Day & Night");
     }
-    
 
     /**
      * <p>Visite d'une cellule vivante</p>
@@ -63,16 +53,5 @@ public class RegleDayNight extends Regle {
             jeu.ajouteCommande(new CommandeVit(cellule));
         }
     }
-
-    /**
-     * Representation en String de la regle
-     * @return la representation
-     */
-    @Override
-    public String toString() {
-        return "Day & Night";
-    }
-
-
 
 }

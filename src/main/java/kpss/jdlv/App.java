@@ -63,7 +63,7 @@ public class App implements Observable {
     private Regle[] regles = new Regle[] {
         new RegleClassique(),
         new RegleDayNight(),
-        new RegleStatique(),
+        new RegleHighLife()
     };
     
     /* =========== Constructeurs =========== */
@@ -240,8 +240,6 @@ public class App implements Observable {
      */
     public void actualise() {
         jeu.calculerGeneration();
-        System.out.println(fenetre.getSize());
-        //notifieObservateurs();
     }
 
     /**

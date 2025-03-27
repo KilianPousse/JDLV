@@ -119,14 +119,16 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         double echelle = ((double) zoom) / 100;
-
         int longueur = jeu.getTaille() * taille;
         int largeur = jeu.getTaille() * taille;
         int x = (int) ((getWidth() - longueur * echelle) / 2);
         int y = (int) ((getHeight() - largeur * echelle) / 2);
+
         g2d.translate(x, y);
-        
         g2d.scale(echelle, echelle);
+
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, longueur, largeur);
 
         for (Cellule cellule : jeu) {
             if (cellule.estVivante()) {

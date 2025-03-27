@@ -7,8 +7,10 @@ import kpss.jdlv.commande.CmdCharger;
 import kpss.jdlv.commande.CmdDemarrerArreter;
 import kpss.jdlv.commande.CmdEnregistrer;
 import kpss.jdlv.commande.CmdNouveau;
+import kpss.jdlv.commande.CmdOuvrirUrl;
 import kpss.jdlv.commande.CmdQuitter;
 import kpss.jdlv.commande.JDLVCommande;
+import kpss.jdlv.commande.JDLVCommandeObj;
 
 /**
  * Classe representant une barre de menu de l'application
@@ -50,6 +52,12 @@ public class BarreMenu extends JMenuBar implements Observateur {
         demarrerArreterItem = new JMenuItem("Démarrer");
         avancerGenItem = new JMenuItem("Avancer");
 
+
+
+        JMenu infoMenu = new JMenu("A Propos");
+        JMenuItem githubItem = new JMenuItem("GitHub");
+        infoMenu.add(githubItem);
+
         fichierMenu.add(nouveauItem);
         fichierMenu.add(enregistreItem);
         fichierMenu.add(chargerItem);
@@ -61,6 +69,7 @@ public class BarreMenu extends JMenuBar implements Observateur {
 
         add(fichierMenu);
         add(jeuMenu);
+        add(infoMenu);
 
         JDLVCommande nouveauCommande = new CmdNouveau(app);
         JDLVCommande enregistreCommande = new CmdEnregistrer(app);
@@ -70,6 +79,8 @@ public class BarreMenu extends JMenuBar implements Observateur {
         JDLVCommande demarrerArreterCommande = new CmdDemarrerArreter(app);
         JDLVCommande avancerCommande = new CmdAvancerGen(app);
 
+        JDLVCommandeObj<String> infoCommande = new CmdOuvrirUrl(app);
+
         
         nouveauItem.addActionListener((e) -> nouveauCommande.executer());
         enregistreItem.addActionListener((e) -> enregistreCommande.executer());
@@ -78,6 +89,8 @@ public class BarreMenu extends JMenuBar implements Observateur {
 
         demarrerArreterItem.addActionListener((e) -> demarrerArreterCommande.executer());
         avancerGenItem.addActionListener((e) -> avancerCommande.executer());
+
+        githubItem.addActionListener((e) -> infoCommande.executer("https://github.com/KilianPosse/JDLV"));
     }
 
     /**

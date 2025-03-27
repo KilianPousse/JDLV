@@ -7,49 +7,29 @@ import java.io.Serializable;
  * @author Kilian POUSSE
  * @since 2025-03-11
  */
-public abstract class Regle implements Serializable {
+public interface Regle extends Serializable {
     
-    /** Jeu de la vie */
-    protected JeuDeLaVie jeu;
-
-    /**
-     * Constructeur de Visiteur
-     * @param jeu Jeu de la vie
-     */
-    public Regle(JeuDeLaVie jeu) {
-        this.jeu = jeu;
-    }
-
-    /**
-     * Constructeur d'une regle sans jeu
-     */
-    public Regle() {
-        jeu = null;
-    }
-
     /**
      * Affectation d'un jeu à la règle
      */
-    public void setJeu(JeuDeLaVie jeu) {
-        this.jeu = jeu;
-    }
+    public void setJeu(JeuDeLaVie jeu);
+
+    /**
+     * Récupération du nom de la regle
+     * @return nom de la regle
+     */
+    public String getNom();
 
     /**
      * Visite d'une cellule vivante
      * @param cellule Cellule vivante
-     * @throws UnsupportedOperationException
      */ 
-    public void visiteCellVivante(Cellule cellule) {
-        throw new UnsupportedOperationException("Unimplemented method 'visiteCellVivante'");
-    }
+    public void visiteCellVivante(Cellule cellule);
 
     /**
      * Visite d'une cellule morte
      * @param cellule Cellule morte
-     * @throws UnsupportedOperationException
      */ 
-    public void visiteCellMorte(Cellule cellule) {
-        throw new UnsupportedOperationException("Unimplemented method 'visiteCellMorte'");
-    }
+    public void visiteCellMorte(Cellule cellule);
 
 }

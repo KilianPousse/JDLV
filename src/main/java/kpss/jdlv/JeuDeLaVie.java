@@ -110,7 +110,8 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
         }
         this.taille = taille;
         this.grille = new Cellule[taille][taille];
-        this.regle = new RegleClassique(this);
+        this.regle = new RegleClassique();
+        regle.setJeu(this);
         this.generation = 0;
     }
 
@@ -121,7 +122,8 @@ public class JeuDeLaVie implements Observable, Iterable<Cellule>, Serializable {
     public JeuDeLaVie() {
         this.taille = 0;
         this.grille = new Cellule[taille][taille];
-        this.regle = new RegleClassique(this);
+        this.regle = new RegleClassique();
+        regle.setJeu(this);
         this.generation = 0;
     }
 
