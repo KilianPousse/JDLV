@@ -9,7 +9,7 @@ public class ZoomCurseur extends AbstractCurseur {
     private JDLVCommandeObj<Integer> commande;
 
     public ZoomCurseur(App app) {
-        super(app, 0, App.MAX_ZOOM, 100, "Zoom", "%");
+        super(app, 10, App.MAX_ZOOM, 100, "Zoom", "%");
         curseur.setMajorTickSpacing(50);
         curseur.setMinorTickSpacing(25);
         curseur.setPaintTicks(true);
