@@ -33,7 +33,7 @@ Il est maintenant possible de changer de règle du jeu quand la partie est en pa
 
  - **Random Rainbow:** les cellules vivantes peuvent mourir et les cellules mortes peuvent renaître de manière imprévisible, tout en adoptant des couleurs aléatoires parmi une palette prédéfinie.
 
-![Menu déroulant du choix des règles](https://github.com/KilianPousse/JDLV/blob/main/doc/img_readme/regles.png)
+![Menu déroulant du choix des règles](https://raw.githubusercontent.com/KilianPousse/JDLV/refs/heads/main/doc/img_readme/regles.png)
 
 ---
 
@@ -49,7 +49,7 @@ Le projet permet de sauvegarder et de charger une partie afin de reprendre une s
 
 - **Nouveau départ:** L'utilisateur peut réinitialiser la grille pour démarrer une nouvelle simulation.
 
-![Menu d'initialisation](https://github.com/KilianPousse/JDLV/blob/main/doc/img_readme/init.png)
+![Menu d'initialisation](https://raw.githubusercontent.com/KilianPousse/JDLV/refs/heads/main/doc/img_readme/init.png)
 
 ---
 
@@ -74,7 +74,7 @@ Dans le logiciel, un panneau de contrôle est disponible afin de manipuler la si
 - **Curseur de zoom:** Ajuste le niveau de zoom sur la grille pour une meilleure visualisation.
 - **Bouton Recentrer:** Recentre l'affichage de la grille pour un meilleur confort d'utilisation.
 
-![Panneau de contrôle](https://github.com/KilianPousse/JDLV/blob/main/doc/img_readme/p2c.png)
+![Panneau de contrôle](https://raw.githubusercontent.com/KilianPousse/JDLV/refs/heads/main/doc/img_readme/p2c.png)
 
 ---
 
@@ -85,7 +85,7 @@ Un écran dédié permet de visualiser des informations sur la simulation en cou
  - **Nombre d'individus vivants:** Affiche le nombre total de cellules vivantes dans la génération actuelle.
  - **Graphique d'évolution:** Un graphique interactif montre la variation du nombre de cellules vivantes au fil des générations, permettant ainsi de mieux observer les tendances et dynamiques du jeu.
 
-![Écran des Données](https://github.com/KilianPousse/JDLV/blob/main/doc/img_readme/e2d.png)
+![Écran des Données](https://raw.githubusercontent.com/KilianPousse/JDLV/refs/heads/main/doc/img_readme/e2d.png)
 
 ---
 
@@ -110,7 +110,7 @@ L'interface dispose d'une barre de menu permettant d'accéder rapidement aux pri
 
 La barre de menu est dynamique et s'adapte à l'état actuel de la simulation. Par exemple, si aucune simulation n'est en cours, certaines options (comme "Démarrer" ou "Enregistrer") sont désactivées pour éviter les actions non valides.
 
-![Barre de menu](https://github.com/KilianPousse/JDLV/blob/main/doc/img_readme/menu.png)
+![Barre de menu](https://raw.githubusercontent.com/KilianPousse/JDLV/refs/heads/main/doc/img_readme/menu.png)
 
 ---
 
@@ -122,11 +122,11 @@ Des fenêtres d'avertissement sont affichées dans différentes situations pour 
 
 - **Erreur:** Une boîte de dialogue s'affiche en cas d'exception (exemple : erreur lors de l'initialisation d'une nouvelle partie, problème lors de l'enregistrement ou du chargement d'une sauvegarde, ...).
 
-![Fenêtre d'erreur](https://github.com/KilianPousse/JDLV/blob/main/doc/img_readme/err.png)
+![Fenêtre d'erreur](https://raw.githubusercontent.com/KilianPousse/JDLV/refs/heads/main/doc/img_readme/err.png)
 
 - **Avertissement de fermeture:** Lors de la fermeture du logiciel, une confirmation est demandée si la partie en cours n'a pas été sauvegardée, permettant à l'utilisateur de sauvegarder avant de quitter.
 
-![Fenêtre de fermeture](https://github.com/KilianPousse/JDLV/blob/main/doc/img_readme/quit.png)
+![Fenêtre de fermeture](https://raw.githubusercontent.com/KilianPousse/JDLV/refs/heads/main/doc/img_readme/quit.png)
 
 Ces fenêtres permettent d'améliorer l'expérience utilisateur en réduisant les risques de perte de progression et en informant clairement des éventuels problèmes rencontrés.
 
