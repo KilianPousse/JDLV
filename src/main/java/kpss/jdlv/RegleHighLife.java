@@ -1,5 +1,7 @@
 package kpss.jdlv;
 
+import java.awt.Color;
+
 /**
  * Classe des regles 'High Life' du jeu de la vie (Visiteur, Singleton)
  * 
@@ -19,7 +21,7 @@ public class RegleHighLife extends AbstractRegle {
      * Constructeur d'un visiteur 'High Life'.
      */
     public RegleHighLife() {
-        super("High Life");
+        super("High Life", Color.GREEN, Color.WHITE);
     }
     
 

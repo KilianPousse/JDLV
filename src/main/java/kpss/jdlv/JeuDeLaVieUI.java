@@ -1,6 +1,9 @@
 package kpss.jdlv;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import java.awt.*;
 
 /**
@@ -21,6 +24,16 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
     /** Zoom à appliquer sur l'image (%)*/
     private int zoom = 100;
 
+    /** Indique si nous sommes en train de glisser */
+    private boolean dragging = false;  
+
+    /** Point de départ du drag */
+    private Point dragStartPoint = null; 
+
+    /** Décalage actuel pour le décalage du rendu */
+    private Point dragPoint = new Point(0, 0);
+
+
 
     /* =========== Constructeurs =========== */
 
@@ -35,6 +48,43 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
         this.taille = taille;
 
         this.addMouseWheelListener((e) -> zoomer(zoom - e.getWheelRotation() * 10, app));
+
+        this.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Démarre le drag lorsque la souris est enfoncée
+                dragging = true;
+                dragStartPoint = e.getPoint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // Arrête le drag lorsque la souris est relâchée
+                dragging = false;
+                dragStartPoint = null;
+            }
+        });
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+                if(dragging) {
+                    // Calculer le déplacement basé sur la différence entre la position actuelle et celle du début du drag
+                    int deltaX = e.getX() - dragStartPoint.x;
+                    int deltaY = e.getY() - dragStartPoint.y;
+
+                    // Mettre à jour l'point pour déplacer la vue
+                    dragPoint.translate(deltaX, deltaY);
+
+                    // Repeindre l'interface avec le nouvel point
+                    dragStartPoint = e.getPoint();
+                    actualise();
+                }
+            }
+        });
+
     }
 
     /* ========== Getter & Setter ========== */
@@ -114,27 +164,25 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        
+
+        Regle regle = jeu.getRegle();
+
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         double echelle = ((double) zoom) / 100;
         int longueur = jeu.getTaille() * taille;
         int largeur = jeu.getTaille() * taille;
-        int x = (int) ((getWidth() - longueur * echelle) / 2);
-        int y = (int) ((getHeight() - largeur * echelle) / 2);
+
+        // Appliquer l'point à la translation de l'affichage
+        int x = (int) ((getWidth() - longueur * echelle) / 2) + dragPoint.x;
+        int y = (int) ((getHeight() - largeur * echelle) / 2) + dragPoint.y;
 
         g2d.translate(x, y);
         g2d.scale(echelle, echelle);
 
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, longueur, largeur);
-
-        for (Cellule cellule : jeu) {
-            if (cellule.estVivante()) {
-                g2d.setColor(Color.BLUE);
-                g2d.fillOval(cellule.getX() * taille, cellule.getY() * taille, taille, taille);
-            }
+        for(Cellule cellule: jeu) {
+            g2d.setColor(cellule.getCouleur(regle));
+            g2d.fillRect(cellule.getX() * taille, cellule.getY() * taille, taille, taille);
         }
 
         g2d.setColor(Color.BLACK);
@@ -142,15 +190,23 @@ public class JeuDeLaVieUI extends JPanel implements Observateur {
         g2d.drawRect(0, 0, jeu.getTaille() * taille, jeu.getTaille() * taille);
     }
 
-
     /**
      * Fait zoomer le rendu du jeu de la vie
      * @param zoom Nouvelle coef de zoom
      * @param app Application du JDLV
      */
     public void zoomer(int zoom, App app) {
+        if(jeu.estVide()) return;
         setZoom(zoom);
         app.notifieObservateurs();
+    }
+
+    /**
+     * Réinitialise le drag
+     */
+    public void resetDrag() {
+        dragPoint = new Point(0, 0);
+        dragging = false;
     }
 
 }

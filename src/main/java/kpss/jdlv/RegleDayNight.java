@@ -1,5 +1,7 @@
 package kpss.jdlv;
 
+import java.awt.Color;
+
 /**
  * Classe des regles 'Day & Night' du jeu de la vie. C'est un visiteur qui visite les cellules de
  * magniere simple et classique (Visiteur, Singleton)
@@ -19,7 +21,7 @@ public class RegleDayNight extends AbstractRegle {
      * Constructeur d'un visiteur 'Day & Night'.
      */
     public RegleDayNight() {
-        super("Day & Night");
+        super("Day & Night", Color.WHITE, Color.BLACK);
     }
 
     /**
@@ -52,6 +54,15 @@ public class RegleDayNight extends AbstractRegle {
         if(voisines == 3 || voisines == 6 || voisines == 7 || voisines == 8) {
             jeu.ajouteCommande(new CommandeVit(cellule));
         }
+    }
+
+    /**
+     * Récupération de la couleur de la cellule vivante
+     * @return couleur de la cellule vivante
+     */
+    @Override
+    public Color getCouleurGraph() {
+        return Color.BLACK;
     }
 
 }

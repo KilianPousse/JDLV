@@ -1,5 +1,6 @@
 package kpss.jdlv;
 
+import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -164,5 +165,14 @@ public class Cellule implements Serializable {
     @Override
     public String toString() {
         return "<Cellule pos=(" + x + "," + y + ") etat='" + etat + "'>";
+    }
+
+    /**
+     * Récupération de la couleur de la cellule
+     * @param regle Regle du jeu
+     * @return Couleur de la cellule
+     */
+    public Color getCouleur(Regle regle) {
+        return etat.getCouleur(regle);
     }
 }

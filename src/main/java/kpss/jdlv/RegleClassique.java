@@ -1,5 +1,7 @@
 package kpss.jdlv;
 
+import java.awt.Color;
+
 /**
  * Classe des regles classique du jeu de la vie. C'est un visiteur qui visite les cellules de
  * magniere simple et classique (Visiteur, Singleton)
@@ -20,7 +22,7 @@ public class RegleClassique extends AbstractRegle {
      * Creation d'une règle classique
      */
     public RegleClassique() {
-        super("Règle Classique");
+        super("Règle Classique", Color.BLUE, Color.WHITE);
     }
 
     /**

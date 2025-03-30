@@ -37,6 +37,9 @@ public class JDLVGraphique extends JPanel implements Observateur {
     /** Jeu de la vie */
     private JeuDeLaVie jeu;
 
+    /** Rendu du graphique */
+    private XYLineAndShapeRenderer rendu;
+
     /**
      * Constructeur du graphique
      * @param donnees
@@ -70,7 +73,7 @@ public class JDLVGraphique extends JPanel implements Observateur {
         plot.setRangeGridlinesVisible(false);
         plot.setOutlineVisible(false);
 
-        XYLineAndShapeRenderer rendu = new XYLineAndShapeRenderer(true, false);
+        rendu = new XYLineAndShapeRenderer(true, false);
         rendu.setSeriesPaint(0, Color.BLUE);
         plot.setRenderer(rendu);
 
@@ -100,6 +103,8 @@ public class JDLVGraphique extends JPanel implements Observateur {
      */
     @Override
     public void actualise() {
+        rendu.setSeriesPaint(0, jeu.getRegle().getCouleurGraph());
+
         series.clear();
         generation = 0;
         for(Integer d: jeu.getDonnees()) {

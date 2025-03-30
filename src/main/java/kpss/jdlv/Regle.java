@@ -1,5 +1,6 @@
 package kpss.jdlv;
 
+import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -32,4 +33,21 @@ public interface Regle extends Serializable {
      */ 
     public void visiteCellMorte(Cellule cellule);
 
+    /**
+     * Récupération de la couleur de la cellule vivante
+     * @return couleur de la cellule vivante
+     */
+    public Color getCouleurVivante();
+
+    /**
+     * Récupération de la couleur de la cellule morte
+     * @return couleur de la cellule morte
+     */
+    public Color getCouleurMorte();
+
+    /**
+     * Récupération de la couleur du graphique
+     * @return couleur du graphique
+     */
+    public Color getCouleurGraph();
 }

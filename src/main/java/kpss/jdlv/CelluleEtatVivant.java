@@ -1,5 +1,7 @@
 package kpss.jdlv;
 
+import java.awt.Color;
+
 /**
  * Classe permettant de représenter un état de cellule vivante.
  * @author Kilian POUSSE
@@ -83,5 +85,15 @@ public class CelluleEtatVivant implements CelluleEtat {
     @Override
     public String toString() {
         return "vivante";
+    }
+
+    /**
+     * Récupération de la couleur de la cellule
+     * @param regle Regle du jeu
+     * @return Couleur de la cellule
+     */
+    @Override
+    public Color getCouleur(Regle regle) {
+        return regle.getCouleurVivante();
     }
 }

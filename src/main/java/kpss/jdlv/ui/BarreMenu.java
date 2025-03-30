@@ -47,7 +47,7 @@ public class BarreMenu extends JMenuBar implements Observateur {
         JMenuItem quitterItem = new JMenuItem("Quitter");
 
 
-        JMenu jeuMenu = new JMenu("Jeu");
+        JMenu simMenu = new JMenu("Simulation");
 
         demarrerArreterItem = new JMenuItem("Démarrer");
         avancerGenItem = new JMenuItem("Avancer");
@@ -64,11 +64,11 @@ public class BarreMenu extends JMenuBar implements Observateur {
         fichierMenu.addSeparator();
         fichierMenu.add(quitterItem);
 
-        jeuMenu.add(demarrerArreterItem);
-        jeuMenu.add(avancerGenItem);
+        simMenu.add(demarrerArreterItem);
+        simMenu.add(avancerGenItem);
 
         add(fichierMenu);
-        add(jeuMenu);
+        add(simMenu);
         add(infoMenu);
 
         JDLVCommande nouveauCommande = new CmdNouveau(app);
@@ -90,7 +90,7 @@ public class BarreMenu extends JMenuBar implements Observateur {
         demarrerArreterItem.addActionListener((e) -> demarrerArreterCommande.executer());
         avancerGenItem.addActionListener((e) -> avancerCommande.executer());
 
-        githubItem.addActionListener((e) -> infoCommande.executer("https://github.com/KilianPosse/JDLV"));
+        githubItem.addActionListener((e) -> infoCommande.executer("https://github.com/KilianPousse/JDLV"));
     }
 
     /**

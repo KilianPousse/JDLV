@@ -29,6 +29,8 @@ public class CmdSelectionRegle implements JDLVCommandeObj<Regle> {
     @Override
     public void executer(Regle regle) {
         app.setRegle(regle);
+        app.getUi().repaint();
+        app.notifieObservateurs();
     }
     
 

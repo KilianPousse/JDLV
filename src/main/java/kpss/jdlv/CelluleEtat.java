@@ -1,5 +1,6 @@
 package kpss.jdlv;
 
+import java.awt.Color;
 import java.io.Serializable;
 
 /**
@@ -35,4 +36,11 @@ public interface CelluleEtat extends Serializable {
      * @param cellule Cellule qui subit le traitement
      */
     public void accepte(Regle regle, Cellule cellule);
+
+    /**
+     * Récupération de la couleur de la cellule
+     * @param regle Regle du jeu
+     * @return Couleur de la cellule
+     */
+    public Color getCouleur(Regle regle);
 }

@@ -4,6 +4,7 @@ import kpss.jdlv.ui.*;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +64,9 @@ public class App implements Observable {
     private Regle[] regles = new Regle[] {
         new RegleClassique(),
         new RegleDayNight(),
-        new RegleHighLife()
+        new RegleHighLife(),
+        new RegleReverseLife(),
+        new RegleRandomRainbow()
     };
     
     /* =========== Constructeurs =========== */
@@ -72,7 +75,7 @@ public class App implements Observable {
      * Constructeur de l'application
      */
     public App() {
-        fenetre = new JFrame("Le Jeu De La Vie");
+        fenetre = new JFrame("Jeu De La Vie");
         fenetre.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         fenetre.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -151,6 +154,7 @@ public class App implements Observable {
         jeu.attacheObservateur(ui);
         jeu.attacheObservateur(console);
         notifieObservateurs();
+        ui.resetDrag();
         ui.actualise();
     }
 
@@ -338,6 +342,12 @@ public class App implements Observable {
      */
     @Override
     public void notifieObservateurs() {
+        if(jeu.estVide()) {
+            fenetre.setTitle("Jeu De La Vie");
+        }
+        else {
+            fenetre.setTitle("Jeu De La Vie - " + jeu.getRegle().getNom());
+        }
         for(Observateur o: observateurs) {
             o.actualise();
         }

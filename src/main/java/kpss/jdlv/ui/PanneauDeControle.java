@@ -43,18 +43,21 @@ public class PanneauDeControle extends JPanel implements Observable, Observateur
         Curseur vitesseCurseur = new VitesseCurseur(app);
         Choix<Regle> regleChoix = new RegleChoix(app);
         Curseur zoomCurseur = new ZoomCurseur(app);
+        Bouton resetDragBouton = new ResetDragBouton(app);
 
         this.add(demarrageBouton.getBouton());
         this.add(avancerBouton.getBouton());
         this.add(vitesseCurseur.getCurseur());
         this.add(regleChoix.getChoix());
         this.add(zoomCurseur.getCurseur());
+        this.add(resetDragBouton.getBouton());
 
         attacheObservateur(demarrageBouton);
         attacheObservateur(avancerBouton);
         attacheObservateur(vitesseCurseur);
         attacheObservateur(regleChoix);
         attacheObservateur(zoomCurseur);
+        attacheObservateur(resetDragBouton);
     }
 
     /**

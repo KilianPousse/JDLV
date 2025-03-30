@@ -1,5 +1,7 @@
 package kpss.jdlv;
 
+import java.awt.Color;
+
 /**
  * Classe permettant de représenter un état de cellule morte.
  * @author Kilian POUSSE
@@ -83,5 +85,15 @@ public class CelluleEtatMort implements CelluleEtat {
     @Override
     public String toString() {
         return "morte";
+    }
+
+    /**
+     * Récupération de la couleur de la cellule
+     * @param regle Regle du jeu
+     * @return Couleur de la cellule
+     */
+    @Override
+    public Color getCouleur(Regle regle) {
+        return regle.getCouleurMorte();
     }
 }
