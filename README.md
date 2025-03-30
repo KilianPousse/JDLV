@@ -85,7 +85,7 @@ Un écran dédié permet de visualiser des informations sur la simulation en cou
  - **Nombre d'individus vivants:** Affiche le nombre total de cellules vivantes dans la génération actuelle.
  - **Graphique d'évolution:** Un graphique interactif montre la variation du nombre de cellules vivantes au fil des générations, permettant ainsi de mieux observer les tendances et dynamiques du jeu.
 
-![Écran des Données](doc/img_readme/p2c.png)
+![Écran des Données](doc/img_readme/e2d.png)
 
 ---
 
